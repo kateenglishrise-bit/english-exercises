@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>English for IT - Exercises</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
+        h1 { color: #333; }
+        .lesson-link { display: block; margin: 10px 0; padding: 15px; background: white; border-radius: 8px; text-decoration: none; color: #0366d6; font-size: 18px; border: 1px solid #ddd; }
+        .lesson-link:hover { background: #f1f8ff; }
+    </style>
+</head>
+<body>
+    <h1>📋 Interactive English Exercises</h1>
+    <p>Choose a lesson below:</p>
+    
+    <a href="prepositions-1/" class="lesson-link">📚 Lesson 1: Prepositions</a>
+
+</body>
+</html>
