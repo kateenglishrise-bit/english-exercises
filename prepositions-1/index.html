@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1 Prepositions Practice</title>
+    <style>
+        :root {
+            --primary: #2b7bb9;
+            --bg-color: #f4f7f6;
+            --text-main: #333;
+            --correct-bg: #d4edda;
+            --correct-border: #c3e6cb;
+            --incorrect-bg: #f8d7da;
+            --incorrect-border: #f5c6cb;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .exercise-section {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        p.instructions {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        input[type="text"], select {
+            font-size: 1rem;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"] {
+            width: 150px;
+        }
+
+        input.correct, select.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            color: #155724;
+        }
+
+        input.incorrect, select.incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+            color: #721c24;
+        }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .btn-check {
+            display: block;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .btn-check:hover {
+            background-color: #1f5c8c;
+        }
+
+        .score-display {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Advanced Prepositions Practice (C1)</h1>
+
+    <!-- Type 1: Key Word Transformations -->
+    <div class="exercise-section" id="ex1">
+        <h2>1. Key Word Transformations</h2>
+        <p class="instructions">Complete the second sentence so it has a similar meaning to the first, using the capitalized noun or adjective + the correct preposition/infinitive. Type your answers exactly.</p>
+        
+        <div class="question"><span class="question-number">1.</span> We are determined to succeed in this market.<br>
+            We have a strong <input type="text" data-answer="determination to"> succeed in this market. <span class="hint">(DETERMINATION)</span></div>
+        <div class="question"><span class="question-number">2.</span> Profits dropped sharply last quarter.<br>
+            There was a sharp <input type="text" data-answer="decrease in"> profits last quarter. <span class="hint">(DECREASE)</span></div>
+        <div class="question"><span class="question-number">3.</span> I am completely tired of this terrible weather.<br>
+            I am completely <input type="text" data-answer="fed up with"> this terrible weather. <span class="hint">(FED UP)</span></div>
+        <div class="question"><span class="question-number">4.</span> They wouldn't negotiate, which caused the strike.<br>
+            Their <input type="text" data-answer="refusal to"> negotiate caused the strike. <span class="hint">(REFUSAL)</span></div>
+        <div class="question"><span class="question-number">5.</span> We need to know what caused the system failure.<br>
+            We need to analyze the main <input type="text" data-answer="factor behind"> the system failure. <span class="hint">(FACTOR)</span></div>
+        <div class="question"><span class="question-number">6.</span> They firmly stated they were against the new highway.<br>
+            They expressed strong <input type="text" data-answer="opposition to"> the new highway. <span class="hint">(OPPOSITION)</span></div>
+        <div class="question"><span class="question-number">7.</span> The storm heavily ruined the coastal towns.<br>
+            The storm caused significant <input type="text" data-answer="damage to"> the coastal towns. <span class="hint">(DAMAGE)</span></div>
+        <div class="question"><span class="question-number">8.</span> She is very enthusiastic about learning new languages.<br>
+            She is very <input type="text" data-answer="keen on"> learning new languages. <span class="hint">(KEEN)</span></div>
+        <div class="question"><span class="question-number">9.</span> The manager allowed us to leave early.<br>
+            The manager gave us <input type="text" data-answer="permission to"> leave early. <span class="hint">(PERMISSION)</span></div>
+        <div class="question"><span class="question-number">10.</span> It is refreshing because it is different from the usual routine.<br>
+            It is a refreshing <input type="text" data-answer="change from"> the usual routine. <span class="hint">(CHANGE)</span></div>
+
+        <button class="btn-check" onclick="checkAnswers('ex1')">Check Answers</button>
+        <div class="score-display"></div>
+    </div>
+
+    <!-- Type 2: Semantic Distinctions -->
+    <div class="exercise-section" id="ex2">
+        <h2>2. Semantic Distinctions</h2>
+        <p class="instructions">Choose the correct structure (-ing vs. to-infinitive) to match the context of the sentence.</p>
+
+        <div class="question"><span class="question-number">1.</span> Is there any chance 
+            <select data-answer="of winning">
+                <option value="">--select--</option>
+                <option value="of winning">of winning</option>
+                <option value="to win">to win</option>
+            </select> the lottery today? (probability)
+        </div>
+        <div class="question"><span class="question-number">2.</span> I finally had the chance 
+            <select data-answer="to speak">
+                <option value="">--select--</option>
+                <option value="of speaking">of speaking</option>
+                <option value="to speak">to speak</option>
+            </select> with the CEO at the conference. (opportunity)
+        </div>
+        <div class="question"><span class="question-number">3.</span> He has a really annoying way 
+            <select data-answer="of interrupting">
+                <option value="">--select--</option>
+                <option value="of interrupting">of interrupting</option>
+                <option value="to interrupt">to interrupt</option>
+            </select> people. (manner/habit)
+        </div>
+        <div class="question"><span class="question-number">4.</span> This app is the best way 
+            <select data-answer="to learn">
+                <option value="">--select--</option>
+                <option value="of learning">of learning</option>
+                <option value="to learn">to learn</option>
+            </select> a new language. (method to achieve a goal)
+        </div>
+        <div class="question"><span class="question-number">5.</span> She felt a deep sense 
+            <select data-answer="of belonging">
+                <option value="">--select--</option>
+                <option value="of belonging">of belonging</option>
+                <option value="to belong">to belong</option>
+            </select> in her new community. (feeling)
+        </div>
+        <div class="question"><span class="question-number">6.</span> He didn't have the good sense 
+            <select data-answer="to remain">
+                <option value="">--select--</option>
+                <option value="of remaining">of remaining</option>
+                <option value="to remain">to remain</option>
+            </select> silent during the argument. (judgment/intelligence)
+        </div>
+        <div class="question"><span class="question-number">7.</span> We are exploring the possibility 
+            <select data-answer="of expanding">
+                <option value="">--select--</option>
+                <option value="of expanding">of expanding</option>
+                <option value="to expand">to expand</option>
+            </select> our operations overseas.
+        </div>
+        <div class="question"><span class="question-number">8.</span> I have absolutely no desire 
+            <select data-answer="to participate">
+                <option value="">--select--</option>
+                <option value="of participating">of participating</option>
+                <option value="to participate">to participate</option>
+            </select> in this pointless debate.
+        </div>
+        <div class="question"><span class="question-number">9.</span> It was a highly successful attempt 
+            <select data-answer="to break">
+                <option value="">--select--</option>
+                <option value="of breaking">of breaking</option>
+                <option value="to break">to break</option>
+            </select> the world record.
+        </div>
+        <div class="question"><span class="question-number">10.</span> What is the likelihood 
+            <select data-answer="of finding">
+                <option value="">--select--</option>
+                <option value="of finding">of finding</option>
+                <option value="to find">to find</option>
+            </select> a cure within the next decade?
+        </div>
+
+        <button class="btn-check" onclick="checkAnswers('ex2')">Check Answers</button>
+        <div class="score-display"></div>
+    </div>
+
+    <!-- Type 3: Register Upgrades -->
+    <div class="exercise-section" id="ex3">
+        <h2>3. Register and Collocation Upgrades</h2>
+        <p class="instructions">Upgrade the informal/simple phrases by selecting the appropriate C1-level academic or professional collocation.</p>
+
+        <div class="question"><span class="question-number">1.</span> People are asking for more sustainable products. <br>
+            &rarr; There is a growing 
+            <select data-answer="demand for">
+                <option value="">--select--</option>
+                <option value="demand for">demand for</option>
+                <option value="need of">need of</option>
+            </select> sustainable products.
+        </div>
+        <div class="question"><span class="question-number">2.</span> She isn't interested in office gossip. <br>
+            &rarr; She is 
+            <select data-answer="indifferent to">
+                <option value="">--select--</option>
+                <option value="ignorant of">ignorant of</option>
+                <option value="indifferent to">indifferent to</option>
+            </select> office gossip.
+        </div>
+        <div class="question"><span class="question-number">3.</span> He caused the financial crash. <br>
+            &rarr; He is 
+            <select data-answer="answerable for">
+                <option value="">--select--</option>
+                <option value="answerable for">answerable for</option>
+                <option value="guilty to">guilty to</option>
+            </select> the financial crash.
+        </div>
+        <div class="question"><span class="question-number">4.</span> The team doesn't want to change the schedule. <br>
+            &rarr; The team shows 
+            <select data-answer="reluctance to">
+                <option value="">--select--</option>
+                <option value="rejection of">rejection of</option>
+                <option value="reluctance to">reluctance to</option>
+            </select> change the schedule.
+        </div>
+        <div class="question"><span class="question-number">5.</span> I don't tolerate consistent lateness. <br>
+            &rarr; I am 
+            <select data-answer="intolerant of">
+                <option value="">--select--</option>
+                <option value="intolerant of">intolerant of</option>
+                <option value="impatient with">impatient with</option>
+            </select> consistent lateness.
+        </div>
+        <div class="question"><span class="question-number">6.</span> Everyone wants to buy the new smartphone. <br>
+            &rarr; There is a high 
+            <select data-answer="interest in">
+                <option value="">--select--</option>
+                <option value="interest in">interest in</option>
+                <option value="desire of">desire of</option>
+            </select> the new smartphone.
+        </div>
+        <div class="question"><span class="question-number">7.</span> They are scared of losing their jobs. <br>
+            &rarr; They have a real 
+            <select data-answer="fear of">
+                <option value="">--select--</option>
+                <option value="scare of">scare of</option>
+                <option value="fear of">fear of</option>
+            </select> losing their jobs.
+        </div>
+        <div class="question"><span class="question-number">8.</span> She praised the team's incredible effort. <br>
+            &rarr; She was highly 
+            <select data-answer="impressed by">
+                <option value="">--select--</option>
+                <option value="satisfied of">satisfied of</option>
+                <option value="impressed by">impressed by</option>
+            </select> the team's incredible effort.
+        </div>
+        <div class="question"><span class="question-number">9.</span> He feels suspicious of strangers in town. <br>
+            &rarr; He is very 
+            <select data-answer="wary of">
+                <option value="">--select--</option>
+                <option value="nervous to">nervous to</option>
+                <option value="wary of">wary of</option>
+            </select> strangers in town.
+        </div>
+        <div class="question"><span class="question-number">10.</span> We couldn't agree on the final budget. <br>
+            &rarr; We had an 
+            <select data-answer="inability to">
+                <option value="">--select--</option>
+                <option value="inability to">inability to</option>
+                <option value="failure of">failure of</option>
+            </select> agree on the final budget.
+        </div>
+
+        <button class="btn-check" onclick="checkAnswers('ex3')">Check Answers</button>
+        <div class="score-display"></div>
+    </div>
+
+    <!-- Type 4: Advanced Error Correction -->
+    <div class="exercise-section" id="ex4">
+        <h2>4. Advanced Error Correction: Preposition Traps</h2>
+        <p class="instructions">Each sentence contains an incorrectly used preposition based on subtle meaning differences. Identify the error and type ONLY the correct preposition in the box.</p>
+
+        <div class="question"><span class="question-number">1.</span> He is deeply <em>concerned about</em> the origins of the universe, spending years studying them. <br>
+            Correction: <input type="text" data-answer="with" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">2.</span> The refugees were very <em>anxious about</em> a peaceful resolution to the conflict. (meaning: eager for) <br>
+            Correction: <input type="text" data-answer="for" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">3.</span> You shouldn't be <em>afraid of</em> his safety; he is a trained professional. <br>
+            Correction: <input type="text" data-answer="for" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">4.</span> She was very <em>angry about</em> her partner for forgetting their anniversary. <br>
+            Correction: <input type="text" data-answer="with" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">5.</span> As the head of the department, the teacher is <em>answerable for</em> the principal. <br>
+            Correction: <input type="text" data-answer="to" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">6.</span> The new corporate tax rate is heavily <em>unfair of</em> small businesses trying to survive. <br>
+            Correction: <input type="text" data-answer="on" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">7.</span> Despite his high IQ, he is really <em>bad for</em> remembering mathematical formulas. <br>
+            Correction: <input type="text" data-answer="at" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">8.</span> The manager was quite <em>critical on</em> the team's performance during the last quarter. <br>
+            Correction: <input type="text" data-answer="of" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">9.</span> She is exceptionally <em>good with</em> solving complex spatial puzzles. <br>
+            Correction: <input type="text" data-answer="at" style="width: 80px;"></div>
+        <div class="question"><span class="question-number">10.</span> I am so <em>tired with</em> hearing the same excuses from management every month. <br>
+            Correction: <input type="text" data-answer="of" style="width: 80px;"></div>
+
+        <button class="btn-check" onclick="checkAnswers('ex4')">Check Answers</button>
+        <div class="score-display"></div>
+    </div>
+
+    <script>
+        function checkAnswers(sectionId) {
+            const section = document.getElementById(sectionId);
+            const inputs = section.querySelectorAll('input[type="text"], select');
+            let score = 0;
+            
+            inputs.forEach(input => {
+                const correctAnswers = input.dataset.answer.toLowerCase().split('|');
+                const userAnswer = input.value.trim().toLowerCase();
+                
+                if (userAnswer !== "" && correctAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    score++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+            
+            const scoreDisplay = section.querySelector('.score-display');
+            scoreDisplay.textContent = `Score: ${score} / 10`;
+        }
+    </script>
+</body>
+</html>
