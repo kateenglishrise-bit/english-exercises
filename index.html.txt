@@ -15,6 +15,7 @@
     <p>Choose a lesson below:</p>
     
     <a href="prepositions-1/" class="lesson-link">📚 Lesson 1: Prepositions</a>
+    <a href="inversion-1/" class="lesson-link">📚 Lesson 2: Inversions</a>
 
 </body>
 </html>

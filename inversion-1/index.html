@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negative Adverbial Inversion Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for radio buttons and inputs */
+        input[type="radio"]:checked + label {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+        .correct-input {
+            border-color: #22c55e !important;
+            background-color: #f0fdf4 !important;
+            color: #166534 !important;
+        }
+        .incorrect-input {
+            border-color: #ef4444 !important;
+            background-color: #fef2f2 !important;
+            color: #991b1b !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Negative Adverbial Inversion</h1>
+            <p class="text-gray-600">Review the rules below and complete the exercises to test your knowledge.</p>
+        </header>
+
+        <!-- Review Cards (Based on user image) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Frequency -->
+            <div class="bg-gray-800 rounded-xl p-6 text-center text-gray-300 shadow-lg border border-gray-700">
+                <i data-lucide="ban" class="mx-auto h-8 w-8 text-blue-400 mb-3"></i>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Frequency</h3>
+                <div class="space-y-1 mb-4 text-sm font-medium">
+                    <p>Never</p>
+                    <p>Rarely</p>
+                    <p>Seldom</p>
+                </div>
+                <p class="text-xs italic">"Rarely do we see..."</p>
+            </div>
+            <!-- Addition -->
+            <div class="bg-gray-800 rounded-xl p-6 text-center text-gray-300 shadow-lg border border-gray-700">
+                <i data-lucide="plus-circle" class="mx-auto h-8 w-8 text-blue-400 mb-3"></i>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Addition</h3>
+                <div class="space-y-1 mb-4 text-sm font-medium">
+                    <p>Not only...</p>
+                    <p>but also</p>
+                </div>
+                <p class="text-xs italic mt-8">"Not only is he..."</p>
+            </div>
+            <!-- Conditions -->
+            <div class="bg-gray-800 rounded-xl p-6 text-center text-gray-300 shadow-lg border border-gray-700">
+                <i data-lucide="triangle-alert" class="mx-auto h-8 w-8 text-blue-400 mb-3"></i>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Conditions</h3>
+                <div class="space-y-1 mb-4 text-sm font-medium">
+                    <p>Under no</p>
+                    <p>circumstances</p>
+                    <p>In no way</p>
+                </div>
+                <p class="text-xs italic">"In no way was this..."</p>
+            </div>
+            <!-- Realization -->
+            <div class="bg-gray-800 rounded-xl p-6 text-center text-gray-300 shadow-lg border border-gray-700">
+                <i data-lucide="lightbulb" class="mx-auto h-8 w-8 text-blue-400 mb-3"></i>
+                <h3 class="text-xl font-bold text-blue-400 mb-4">Realization</h3>
+                <div class="space-y-1 mb-4 text-sm font-medium">
+                    <p>Little</p>
+                    <p>(did he know)</p>
+                </div>
+                <p class="text-xs italic mt-8">"Little did they realize..."</p>
+            </div>
+        </section>
+
+        <!-- Main Form -->
+        <form id="quizForm" class="space-y-8">
+            
+            <!-- Exercise 1: Multiple Choice -->
+            <section class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="bg-blue-100 text-blue-600 p-2 rounded-lg font-bold">Ex 1</div>
+                    <h2 class="text-2xl font-semibold">Choose the correct option</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="question-block" id="q1-container">
+                        <p class="text-lg mb-3">1. <span class="font-semibold text-blue-600">_______</span> have I heard such a ridiculous excuse.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q1" value="never" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Never</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q1" value="not_only" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Not only</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q1" value="little" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Little</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="question-block" id="q2-container">
+                        <p class="text-lg mb-3">2. <span class="font-semibold text-blue-600">_______</span> is she a great singer, but she also plays the piano.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q2" value="rarely" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Rarely</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q2" value="not_only" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Not only</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q2" value="under_no" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Under no circumstances</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="question-block" id="q3-container">
+                        <p class="text-lg mb-3">3. <span class="font-semibold text-blue-600">_______</span> should passengers open the doors while the train is moving.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q3" value="little" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Little</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q3" value="in_no_way" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>In no way</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q3" value="under_no" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Under no circumstances</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="question-block" id="q4-container">
+                        <p class="text-lg mb-3">4. <span class="font-semibold text-blue-600">_______</span> did he know that his life was about to change forever.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q4" value="seldom" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Seldom</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q4" value="little" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Little</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q4" value="never" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Never</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="question-block" id="q5-container">
+                        <p class="text-lg mb-3">5. <span class="font-semibold text-blue-600">_______</span> had I arrived at the station when the train departed.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q5" value="no_sooner" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>No sooner</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q5" value="hardly" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Hardly</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q5" value="rarely" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Rarely</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+                    <!-- Q6 -->
+                    <div class="question-block" id="q6-container">
+                        <p class="text-lg mb-3">6. <span class="font-semibold text-blue-600">_______</span> do we see such dedication from a new employee.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q6" value="seldom" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Seldom</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q6" value="little" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Little</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q6" value="in_no_way" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>In no way</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="question-block" id="q7-container">
+                        <p class="text-lg mb-3">7. <span class="font-semibold text-blue-600">_______</span> had the match started than it began to rain heavily.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q7" value="hardly" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Hardly</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q7" value="no_sooner" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>No sooner</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q7" value="not_until" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Not until</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="question-block" id="q8-container">
+                        <p class="text-lg mb-3">8. <span class="font-semibold text-blue-600">_______</span> will I ever agree to such terrible terms.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q8" value="only_when" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Only when</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q8" value="never" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Never</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q8" value="under_no" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Under no circumstances</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q9 -->
+                    <div class="question-block" id="q9-container">
+                        <p class="text-lg mb-3">9. <span class="font-semibold text-blue-600">_______</span> did she realise that she had lost her passport.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q9" value="only_later" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Only later</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q9" value="not_only" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Not only</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q9" value="hardly" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Hardly</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="question-block" id="q10-container">
+                        <p class="text-lg mb-3">10. <span class="font-semibold text-blue-600">_______</span> was I involved in the decision-making process.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q10" value="little" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Little</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q10" value="seldom" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>Seldom</span>
+                            </label>
+                            <label class="border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                <input type="radio" name="q10" value="in_no_way" class="hidden">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0 indicator"></div>
+                                <span>In no way</span>
+                            </label>
+                        </div>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exercise 2: Type the Correct Option -->
+            <section class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="bg-blue-100 text-blue-600 p-2 rounded-lg font-bold">Ex 2</div>
+                    <h2 class="text-2xl font-semibold">Type the correct inversion</h2>
+                </div>
+                <p class="text-gray-500 mb-6">Type the correct auxiliary verb and subject to complete the inversion. Pay attention to the tense required by the words in brackets!</p>
+                
+                <div class="space-y-6">
+                    <!-- Q11 -->
+                    <div class="question-block" id="q11-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>1. Seldom</span>
+                            <input type="text" id="q11" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(we / see)</span>
+                            <span>such an amazing performance in this theater.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q12 -->
+                    <div class="question-block" id="q12-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>2. Not only</span>
+                            <input type="text" id="q12" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(he / win)</span>
+                            <span>the gold medal, but he also broke the world record.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q13 -->
+                    <div class="question-block" id="q13-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>3. In no way</span>
+                            <input type="text" id="q13" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(this / be)</span>
+                            <span>your fault. Please don't blame yourself.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q14 -->
+                    <div class="question-block" id="q14-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>4. Rarely</span>
+                            <input type="text" id="q14" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(I / have)</span>
+                            <span>felt so completely exhausted after a hike.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q15 -->
+                    <div class="question-block" id="q15-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>5. Little</span>
+                            <input type="text" id="q15" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(she / expect)</span>
+                            <span>to see her childhood friend at the conference.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+                    <!-- Q16 -->
+                    <div class="question-block" id="q16-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>6. Under no circumstances</span>
+                            <input type="text" id="q16" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(you / should)</span>
+                            <span>give out your password to anyone online.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q17 -->
+                    <div class="question-block" id="q17-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>7. Hardly</span>
+                            <input type="text" id="q17" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(we / had / started)</span>
+                            <span>eating when the fire alarm went off.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q18 -->
+                    <div class="question-block" id="q18-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>8. Never before</span>
+                            <input type="text" id="q18" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(I / have / witnessed)</span>
+                            <span>such a display of arrogance.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q19 -->
+                    <div class="question-block" id="q19-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>9. Only later</span>
+                            <input type="text" id="q19" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(they / did / discover)</span>
+                            <span>that the painting was a forgery.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+
+                    <!-- Q20 -->
+                    <div class="question-block" id="q20-container">
+                        <p class="text-lg flex flex-wrap items-center gap-2">
+                            <span>10. Not until the next morning</span>
+                            <input type="text" id="q20" autocomplete="off" class="border-b-2 border-gray-300 outline-none focus:border-blue-500 px-2 py-1 text-center w-32 md:w-48 bg-gray-50 rounded-t-sm transition-colors text-blue-700 font-semibold" placeholder="__________">
+                            <span class="text-gray-500 text-sm">(she / did / realise)</span>
+                            <span>how serious the situation was.</span>
+                        </p>
+                        <p class="feedback hidden mt-2 text-sm font-medium"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions and Score -->
+            <div class="flex flex-col md:flex-row items-center justify-between bg-white p-6 rounded-2xl shadow-sm border border-gray-200 gap-4">
+                <div class="flex gap-4 w-full md:w-auto">
+                    <button type="button" id="checkBtn" class="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-md hover:shadow-lg flex justify-center items-center gap-2">
+                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                        Check Answers
+                    </button>
+                    <button type="button" id="resetBtn" class="flex-1 md:flex-none bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-colors flex justify-center items-center gap-2">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                        Reset
+                    </button>
+                </div>
+                
+                <div id="scoreDisplay" class="hidden text-xl font-bold bg-gray-50 px-6 py-3 rounded-xl border border-gray-200">
+                    Score: <span id="scoreText" class="text-blue-600">0/20</span>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Custom script to handle radio button indicators visually
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const name = this.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.nextElementSibling.classList.remove('bg-blue-500', 'border-blue-500');
+                    r.nextElementSibling.classList.add('border-gray-300');
+                });
+                if(this.checked) {
+                    this.nextElementSibling.classList.remove('border-gray-300');
+                    this.nextElementSibling.classList.add('bg-blue-500', 'border-blue-500');
+                }
+            });
+        });
+
+        // Answers Key
+        const answers = {
+            q1: "never",
+            q2: "not_only",
+            q3: "under_no",
+            q4: "little",
+            q5: "hardly",
+            q6: "seldom",
+            q7: "no_sooner",
+            q8: "never",
+            q9: "only_later",
+            q10: "in_no_way",
+            q11: ["do we see"],
+            q12: ["did he win"],
+            q13: ["is this", "was this"], // Accept both present and past context 
+            q14: ["have i"],
+            q15: ["did she expect"],
+            q16: ["should you"],
+            q17: ["had we started"],
+            q18: ["have i witnessed"],
+            q19: ["did they discover"],
+            q20: ["did she realise", "did she realize"]
+        };
+
+        const checkBtn = document.getElementById('checkBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const scoreText = document.getElementById('scoreText');
+
+        function showFeedback(containerId, isCorrect, correctText = "") {
+            const container = document.getElementById(containerId);
+            const feedbackEl = container.querySelector('.feedback');
+            feedbackEl.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            
+            if (isCorrect) {
+                feedbackEl.classList.add('text-green-600');
+                feedbackEl.innerHTML = `<i data-lucide="check" class="inline w-4 h-4 mr-1"></i> Correct!`;
+            } else {
+                feedbackEl.classList.add('text-red-600');
+                feedbackEl.innerHTML = `<i data-lucide="x" class="inline w-4 h-4 mr-1"></i> Incorrect. ${correctText}`;
+            }
+            lucide.createIcons();
+        }
+
+        checkBtn.addEventListener('click', () => {
+            let score = 0;
+            const totalQuestions = 20;
+
+            // Check Exercise 1
+            for (let i = 1; i <= 10; i++) {
+                const qName = `q${i}`;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                const containerId = `${qName}-container`;
+                
+                if (selected) {
+                    if (selected.value === answers[qName]) {
+                        score++;
+                        showFeedback(containerId, true);
+                    } else {
+                        // Find the label text of the correct answer
+                        const correctLabel = document.querySelector(`input[name="${qName}"][value="${answers[qName]}"]`).nextElementSibling.nextElementSibling.textContent;
+                        showFeedback(containerId, false, `The correct answer is: <strong>${correctLabel}</strong>`);
+                    }
+                } else {
+                    showFeedback(containerId, false, "Please select an answer.");
+                }
+            }
+
+            // Check Exercise 2
+            for (let i = 11; i <= 20; i++) {
+                const qName = `q${i}`;
+                const inputEl = document.getElementById(qName);
+                const containerId = `${qName}-container`;
+                // Clean the input: lowercase and remove extra spaces
+                const userAnswer = inputEl.value.trim().toLowerCase().replace(/\s+/g, ' ');
+                
+                inputEl.classList.remove('correct-input', 'incorrect-input');
+
+                if (answers[qName].includes(userAnswer)) {
+                    score++;
+                    inputEl.classList.add('correct-input');
+                    showFeedback(containerId, true);
+                } else {
+                    inputEl.classList.add('incorrect-input');
+                    showFeedback(containerId, false, `The correct structure is: <strong>${answers[qName][0]}</strong>`);
+                }
+            }
+
+            // Display Score
+            scoreText.textContent = `${score} / ${totalQuestions}`;
+            scoreDisplay.classList.remove('hidden');
+            
+            // Scroll to bottom to see score
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+
+        resetBtn.addEventListener('click', () => {
+            // Reset Radios
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+                radio.nextElementSibling.classList.remove('bg-blue-500', 'border-blue-500');
+                radio.nextElementSibling.classList.add('border-gray-300');
+            });
+
+            // Reset Text Inputs
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.value = "";
+                input.classList.remove('correct-input', 'incorrect-input');
+            });
+
+            // Hide Feedback
+            document.querySelectorAll('.feedback').forEach(f => {
+                f.classList.add('hidden');
+                f.innerHTML = "";
+            });
+
+            // Hide Score
+            scoreDisplay.classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+    </script>
+</body>
+</html>
