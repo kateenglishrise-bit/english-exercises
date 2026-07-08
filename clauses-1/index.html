@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1 Advanced: Reduced Relative Clauses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .select-inline {
+            appearance: none;
+            background-color: #f3f4f6;
+            border-bottom: 2px solid #6b7280;
+            padding: 0 24px 0 4px;
+            margin: 0 4px;
+            font-weight: 600;
+            color: #4f46e5;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200.svg' fill='none' viewBox='0 0 24 24' stroke='%234f46e5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 1em;
+        }
+        .select-inline:hover, .select-inline:focus {
+            border-bottom-color: #4f46e5;
+            background-color: #e0e7ff;
+        }
+        .select-correct {
+            border-bottom-color: #10b981 !important;
+            color: #10b981 !important;
+        }
+        .select-incorrect {
+            border-bottom-color: #ef4444 !important;
+            color: #ef4444 !important;
+        }
+        .input-text {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .input-text:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        .input-correct {
+            border-color: #10b981 !important;
+            background-color: #ecfdf5;
+        }
+        .input-incorrect {
+            border-color: #ef4444 !important;
+            background-color: #fef2f2;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen pb-12">
+
+    <header class="bg-indigo-700 text-white shadow-lg py-8 px-4 mb-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">C1 Advanced Grammar</h1>
+            <p class="text-indigo-200 text-lg">Consolidation: Reduced Relative Clauses, Participles & Infinitives</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 space-y-12">
+
+        <section class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="bg-indigo-50 border-b border-indigo-100 p-6">
+                <h2 class="text-2xl font-bold text-indigo-900 mb-2">Exercise 1: Inline Dropdown Menus</h2>
+                <p class="text-indigo-700"><strong>Instructions:</strong> Click the blank spaces within the sentences and select the correct participle clause to complete the statements. Pay attention to active, passive, and continuous future meanings.</p>
+            </div>
+            
+            <div class="p-6 space-y-6" id="ex1-container">
+                <!-- Dropdown questions will be injected here by JS -->
+            </div>
+
+            <div class="p-6 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+                <div id="ex1-score" class="text-lg font-bold text-gray-700 hidden"></div>
+                <button onclick="checkExercise1()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ml-auto">Check Answers</button>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="bg-purple-50 border-b border-purple-100 p-6">
+                <h2 class="text-2xl font-bold text-purple-900 mb-2">Exercise 2: Text Transformation</h2>
+                <p class="text-purple-700"><strong>Instructions:</strong> Read the sentence with the full relative clause (underlined). Rewrite the <strong>entire sentence</strong> in the text box below it, transforming the underlined section into a reduced relative clause (participle, to-infinitive, etc.). Punctuation is ignored in grading.</p>
+            </div>
+            
+            <div class="p-6 space-y-8" id="ex2-container">
+                <!-- Text input questions will be injected here by JS -->
+            </div>
+
+            <div class="p-6 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+                <div id="ex2-score" class="text-lg font-bold text-gray-700 hidden"></div>
+                <button onclick="checkExercise2()" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ml-auto">Check Answers</button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const ex1Data = [
+            {
+                textParts: ["The proposal, ", " at the emergency summit next week, aims to drastically reduce carbon emissions."],
+                options: ["discussed", "discussing", "being discussed"],
+                correct: "being discussed",
+                explanation: "'being + -ed' is used to emphasise a future passive event."
+            },
+            {
+                textParts: ["Any passengers ", " smoking on the aircraft will face severe legal penalties."],
+                options: ["caught", "catching", "being caught"],
+                correct: "caught",
+                explanation: "An '-ed' clause is used for a passive meaning (passengers who are caught)."
+            },
+            {
+                textParts: ["The entrepreneur, ", " the market was saturated, strategically pivoted her business model."],
+                options: ["realized", "realizing", "being realized"],
+                correct: "realizing",
+                explanation: "An '-ing' clause is used for an active meaning (she realized)."
+            },
+            {
+                textParts: ["The ancient artifacts ", " from the tomb last month have fundamentally changed our understanding of the dynasty."],
+                options: ["excavated", "excavating", "being excavated"],
+                correct: "excavated",
+                explanation: "An '-ed' clause replaces a passive relative clause (artifacts which were excavated)."
+            },
+            {
+                textParts: ["All delegates ", " the conference are cordially invited to the gala dinner on Friday evening."],
+                options: ["attended", "attending", "being attended"],
+                correct: "attending",
+                explanation: "An '-ing' clause is used for an active meaning (delegates who are attending)."
+            },
+            {
+                textParts: ["The new software infrastructure, ", " across all global departments tomorrow, should streamline our operations."],
+                options: ["rolled out", "rolling out", "being rolled out"],
+                correct: "being rolled out",
+                explanation: "Use 'being + -ed' for a passive event happening in the future."
+            },
+            {
+                textParts: ["Individuals ", " guilty of corporate fraud will be prosecuted to the fullest extent of the law."],
+                options: ["found", "finding", "being found"],
+                correct: "found",
+                explanation: "Use the '-ed' clause for a defining passive state (individuals who are found)."
+            },
+            {
+                textParts: ["The elusive species, ", " only the deepest and darkest parts of the ocean, is rarely seen by humans."],
+                options: ["inhabited", "inhabiting", "being inhabited"],
+                correct: "inhabiting",
+                explanation: "Use the '-ing' clause for an active verb (the species which inhabits)."
+            },
+            {
+                textParts: ["The infrastructure projects ", " by the international grant next year will revitalize the region's economy."],
+                options: ["funded", "funding", "being funded"],
+                correct: "being funded",
+                explanation: "'being + -ed' points to a future passive action."
+            },
+            {
+                textParts: ["The methodology ", " by the research team has been heavily criticized by their academic peers."],
+                options: ["employed", "employing", "being employed"],
+                correct: "employed",
+                explanation: "Use the '-ed' clause for a past passive meaning (the methodology which was employed)."
+            }
+        ];
+
+        const ex2Data = [
+            {
+                original: "The scientists <u class='decoration-purple-500 decoration-2 font-semibold'>who are researching</u> the new virus have made a breakthrough.",
+                validAnswers: [
+                    "The scientists researching the new virus have made a breakthrough"
+                ],
+                explanation: "Change the active continuous verb 'who are researching' to the -ing participle 'researching'."
+            },
+            {
+                original: "Neil Armstrong was the first person <u class='decoration-purple-500 decoration-2 font-semibold'>who walked</u> on the moon.",
+                validAnswers: [
+                    "Neil Armstrong was the first person to walk on the moon"
+                ],
+                explanation: "Use a to-infinitive clause after 'the first/second/last' + noun."
+            },
+            {
+                original: "The policies <u class='decoration-purple-500 decoration-2 font-semibold'>that were implemented</u> last year have caused controversy.",
+                validAnswers: [
+                    "The policies implemented last year have caused controversy"
+                ],
+                explanation: "Change the passive relative clause to an -ed participle clause."
+            },
+            {
+                original: "She is the only candidate <u class='decoration-purple-500 decoration-2 font-semibold'>who has</u> the required qualifications.",
+                validAnswers: [
+                    "She is the only candidate to have the required qualifications"
+                ],
+                explanation: "Use a to-infinitive clause after 'the only' + noun."
+            },
+            {
+                original: "The regulations <u class='decoration-purple-500 decoration-2 font-semibold'>that are being introduced</u> next month will affect everyone.",
+                validAnswers: [
+                    "The regulations being introduced next month will affect everyone",
+                    "The regulations to be introduced next month will affect everyone"
+                ],
+                explanation: "For a future/ongoing passive event, use 'being + -ed' (or 'to be + -ed')."
+            },
+            {
+                original: "The manager, <u class='decoration-purple-500 decoration-2 font-semibold'>who was furious</u> about the mistake, demanded an explanation.",
+                validAnswers: [
+                    "The manager furious about the mistake demanded an explanation"
+                ],
+                explanation: "Reduce to an Adjective Phrase. (Note: Punctuation is ignored in your answer)."
+            },
+            {
+                original: "The documents <u class='decoration-purple-500 decoration-2 font-semibold'>that are on</u> the top shelf belong to the professor.",
+                validAnswers: [
+                    "The documents on the top shelf belong to the professor"
+                ],
+                explanation: "Reduce to a Prepositional Phrase by dropping 'that are'."
+            },
+            {
+                original: "Anyone <u class='decoration-purple-500 decoration-2 font-semibold'>who wishes</u> to participate must sign the register.",
+                validAnswers: [
+                    "Anyone wishing to participate must sign the register"
+                ],
+                explanation: "Change the active present simple verb to an -ing participle."
+            },
+            {
+                original: "This is the best method <u class='decoration-purple-500 decoration-2 font-semibold'>that we can use</u> to solve the problem.",
+                validAnswers: [
+                    "This is the best method to use to solve the problem"
+                ],
+                explanation: "Use a to-infinitive clause after a superlative + noun."
+            },
+            {
+                original: "The evidence <u class='decoration-purple-500 decoration-2 font-semibold'>that was presented</u> to the jury was largely circumstantial.",
+                validAnswers: [
+                    "The evidence presented to the jury was largely circumstantial"
+                ],
+                explanation: "Change the passive relative clause to an -ed participle."
+            }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderExercise1();
+            renderExercise2();
+        });
+
+        function renderExercise1() {
+            const container = document.getElementById('ex1-container');
+            ex1Data.forEach((item, index) => {
+                let optionsHtml = `<option value="" disabled selected>---</option>`;
+                // Shuffle options for better gameplay
+                let shuffledOptions = [...item.options].sort(() => Math.random() - 0.5);
+                shuffledOptions.forEach(opt => {
+                    optionsHtml += `<option value="${opt}">${opt}</option>`;
+                });
+
+                const div = document.createElement('div');
+                div.className = "flex flex-col md:flex-row items-start md:items-center gap-2 text-lg text-gray-800";
+                div.innerHTML = `
+                    <span class="font-bold text-gray-400 w-6">${index + 1}.</span>
+                    <p class="leading-relaxed">
+                        ${item.textParts[0]}
+                        <select id="ex1-q${index}" class="select-inline">${optionsHtml}</select>
+                        ${item.textParts[1]}
+                    </p>
+                `;
+                
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.id = `ex1-fb${index}`;
+                feedbackDiv.className = "w-full text-sm mt-1 ml-8 hidden";
+                
+                const wrapper = document.createElement('div');
+                wrapper.className = "pb-4 border-b border-gray-100 last:border-0";
+                wrapper.appendChild(div);
+                wrapper.appendChild(feedbackDiv);
+                
+                container.appendChild(wrapper);
+            });
+        }
+
+        function renderExercise2() {
+            const container = document.getElementById('ex2-container');
+            ex2Data.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = "flex flex-col gap-3";
+                div.innerHTML = `
+                    <div class="flex gap-2 text-lg text-gray-800">
+                        <span class="font-bold text-gray-400 w-6">${index + 1}.</span>
+                        <p class="leading-relaxed">${item.original}</p>
+                    </div>
+                    <div class="ml-8 relative">
+                        <input type="text" id="ex2-q${index}" class="input-text" placeholder="Type the fully reduced sentence here..." autocomplete="off">
+                        <div id="ex2-fb${index}" class="text-sm mt-2 hidden"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function checkExercise1() {
+            let score = 0;
+            ex1Data.forEach((item, index) => {
+                const selectEl = document.getElementById(`ex1-q${index}`);
+                const feedbackEl = document.getElementById(`ex1-fb${index}`);
+                const val = selectEl.value;
+                
+                selectEl.classList.remove('select-correct', 'select-incorrect');
+                feedbackEl.classList.remove('hidden', 'text-green-600', 'text-red-600');
+
+                if (val === item.correct) {
+                    score++;
+                    selectEl.classList.add('select-correct');
+                    feedbackEl.classList.add('text-green-600');
+                    feedbackEl.innerHTML = `✓ Correct! ${item.explanation}`;
+                } else {
+                    selectEl.classList.add('select-incorrect');
+                    feedbackEl.classList.add('text-red-600');
+                    if (val === "") {
+                        feedbackEl.innerHTML = `✗ Please select an option.`;
+                    } else {
+                        feedbackEl.innerHTML = `✗ Incorrect. The correct answer is <strong>${item.correct}</strong>. ${item.explanation}`;
+                    }
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('ex1-score');
+            scoreDisplay.innerHTML = `Score: ${score} / ${ex1Data.length}`;
+            scoreDisplay.classList.remove('hidden');
+        }
+
+        function normalizeString(str) {
+            // Remove all punctuation, convert to lowercase, remove extra spaces
+            return str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ").trim();
+        }
+
+        function checkExercise2() {
+            let score = 0;
+            ex2Data.forEach((item, index) => {
+                const inputEl = document.getElementById(`ex2-q${index}`);
+                const feedbackEl = document.getElementById(`ex2-fb${index}`);
+                const userVal = normalizeString(inputEl.value);
+                
+                inputEl.classList.remove('input-correct', 'input-incorrect');
+                feedbackEl.classList.remove('hidden', 'text-green-600', 'text-red-600', 'bg-green-50', 'bg-red-50', 'p-3', 'rounded-md', 'border');
+
+                // Check if user value matches any of the valid normalized answers
+                const isCorrect = item.validAnswers.some(ans => normalizeString(ans) === userVal);
+
+                if (isCorrect) {
+                    score++;
+                    inputEl.classList.add('input-correct');
+                    feedbackEl.classList.add('text-green-700', 'bg-green-50', 'p-3', 'rounded-md', 'border', 'border-green-200');
+                    feedbackEl.innerHTML = `<strong>✓ Perfect!</strong> ${item.explanation}`;
+                } else {
+                    inputEl.classList.add('input-incorrect');
+                    feedbackEl.classList.add('text-red-700', 'bg-red-50', 'p-3', 'rounded-md', 'border', 'border-red-200');
+                    if (userVal === "") {
+                        feedbackEl.innerHTML = `<strong>✗ Missing answer.</strong><br>Target structure: <em>${item.validAnswers[0]}.</em>`;
+                    } else {
+                        feedbackEl.innerHTML = `<strong>✗ Not quite right.</strong><br>Target structure: <em>${item.validAnswers[0]}.</em><br><span class="text-xs text-red-500 mt-1 block">Rule: ${item.explanation}</span>`;
+                    }
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('ex2-score');
+            scoreDisplay.innerHTML = `Score: ${score} / ${ex2Data.length}`;
+            scoreDisplay.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
