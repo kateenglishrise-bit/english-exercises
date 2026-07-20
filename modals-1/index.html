@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Modals Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and animations */
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Custom styling for select dropdowns */
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Radio button custom styling */
+        input[type="radio"] {
+            accent-color: #7c3aed;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #7c3aed;
+            color: #7c3aed;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            color: #64748b;
+        }
+        .tab-inactive:hover {
+            color: #475569;
+        }
+        
+        /* Explanation Box */
+        .explanation {
+            display: none;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background-color: #f1f5f9;
+            border-left: 4px solid #8b5cf6;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            color: #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="w-8 h-8 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <h1 class="text-xl font-bold text-gray-900 tracking-tight">Advanced Modals Masterclass</h1>
+            </div>
+            <div class="text-sm font-medium text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
+                Level: B2-C1
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200 bg-gray-50/50" role="tablist">
+                <button id="tab1" onclick="switchTab(1)" class="flex-1 py-4 px-6 text-sm sm:text-base text-center transition-colors tab-active focus:outline-none">
+                    1. Multiple Choice
+                </button>
+                <button id="tab2" onclick="switchTab(2)" class="flex-1 py-4 px-6 text-sm sm:text-base text-center transition-colors tab-inactive focus:outline-none">
+                    2. Inline Correction
+                </button>
+                <button id="tab3" onclick="switchTab(3)" class="flex-1 py-4 px-6 text-sm sm:text-base text-center transition-colors tab-inactive focus:outline-none">
+                    3. Context Matching
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8">
+                <!-- Exercise 1 Container -->
+                <div id="ex1-container" class="fade-in block">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Nuanced Selection</h2>
+                        <p class="text-gray-600 mt-2">Select the most appropriate modal verb based on advanced grammatical rules (e.g., sense verbs, logical conclusions, passive voice preferences).</p>
+                    </div>
+                    <form id="ex1-form" class="space-y-8"></form>
+                    <div class="mt-8 flex justify-end border-t border-gray-100 pt-6">
+                        <button type="button" onclick="checkEx1()" class="bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors shadow-sm">Check Answers</button>
+                    </div>
+                </div>
+
+                <!-- Exercise 2 Container -->
+                <div id="ex2-container" class="fade-in hidden">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Spot & Fix the Mistake</h2>
+                        <p class="text-gray-600 mt-2">Each sentence contains a subtly incorrect modal usage based on specific rules. Choose the correct replacement from the dropdown.</p>
+                    </div>
+                    <form id="ex2-form" class="space-y-6"></form>
+                    <div class="mt-8 flex justify-end border-t border-gray-100 pt-6">
+                        <button type="button" onclick="checkEx2()" class="bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors shadow-sm">Check Answers</button>
+                    </div>
+                </div>
+
+                <!-- Exercise 3 Container -->
+                <div id="ex3-container" class="fade-in hidden">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Context & Function Matching</h2>
+                        <p class="text-gray-600 mt-2">Analyze the sentence and match the modal verb to its precise grammatical function or context.</p>
+                    </div>
+                    <form id="ex3-form" class="space-y-6"></form>
+                    <div class="mt-8 flex justify-end border-t border-gray-100 pt-6">
+                        <button type="button" onclick="checkEx3()" class="bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors shadow-sm">Check Answers</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Message Modal -->
+    <div id="message-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 transform scale-95 transition-transform duration-300 overflow-hidden">
+            <div id="modal-header" class="px-6 py-4 border-b flex items-center gap-3">
+                <!-- Icon injected via JS -->
+                <h3 id="modal-title" class="text-lg font-bold text-gray-900"></h3>
+            </div>
+            <div class="px-6 py-5 text-gray-600" id="modal-body">
+                <!-- Message injected via JS -->
+            </div>
+            <div class="px-6 py-4 bg-gray-50 text-right">
+                <button onclick="closeModal()" class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-lg transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA STRUCTURES ---
+
+        const ex1Data = [
+            {
+                q: "__________ the new regulations heavily impact our cross-border sales?",
+                options: ["Could", "May", "Might"],
+                answer: 0,
+                explanation: "We do not use 'may' to ask questions about the possibility of something happening. Instead, we use 'could' or 'be likely to'."
+            },
+            {
+                q: "Despite the complex instructions, the application __________ deployed effortlessly by the IT team.",
+                options: ["may be", "can be", "might be"],
+                answer: 1,
+                explanation: "We generally prefer 'can' and 'could' in passive voice constructions over 'may' or 'might'."
+            },
+            {
+                q: "He's been ignoring my calls all day. He __________ be furious about what I said during the meeting.",
+                options: ["must", "has to", "would"],
+                answer: 0,
+                explanation: "We usually use 'must', rather than 'have to', when we logically conclude that something is true."
+            },
+            {
+                q: "Whenever the professor was challenged by a student, he __________ adjust his glasses and sigh deeply before responding.",
+                options: ["will", "should", "would"],
+                answer: 2,
+                explanation: "We use 'would' (past) to talk about characteristic behaviour or habits in the past."
+            },
+            {
+                q: "Even through the thick morning fog, I __________ make out the silhouette of the old lighthouse.",
+                options: ["could", "might", "may"],
+                answer: 0,
+                explanation: "We prefer 'can' or 'could' with verbs of sense (like see, make out, hear, smell)."
+            },
+            {
+                q: "The company's stock __________ recover next quarter, but given the current volatile market, it's highly doubtful.",
+                options: ["may", "could", "might"],
+                answer: 2,
+                explanation: "'Might' is used when it's possible something is true/will happen, but we are less certain than if we used 'may' or 'could'."
+            },
+            {
+                q: "You __________ bring a formal gift to the reception, but it is certainly appreciated if you choose to do so.",
+                options: ["don't have to", "mustn't", "needn't to"],
+                answer: 0,
+                explanation: "'Don't have to' means it's not necessary. 'Mustn't' means it is not allowed. 'Needn't to' is grammatically incorrect (it should just be 'needn't')."
+            },
+            {
+                q: "Given her stellar track record and expertise, she __________ struggle with this basic analytical assignment.",
+                options: ["must not", "can't", "might not"],
+                answer: 1,
+                explanation: "For negative logical conclusions (deducing that something is impossible), we use 'can't' or 'couldn't', not 'must not'."
+            },
+            {
+                q: "If they offered you the CEO position out of the blue, it __________ be a phenomenal opportunity to reshape the industry.",
+                options: ["will", "would", "can"],
+                answer: 1,
+                explanation: "'Would' is used to make a prediction about an imaginary or hypothetical future."
+            },
+            {
+                q: "I firmly believe we __________ implement a more robust feedback loop; it's highly desirable for team growth.",
+                options: ["ought to", "would", "will"],
+                answer: 0,
+                explanation: "'Ought to' or 'should' is used for actions or events the speaker sees as desirable or as an obligation/recommendation."
+            }
+        ];
+
+        const ex2Data = [
+            {
+                textPart1: "",
+                errorText: "May we",
+                textPart2: " see a massive shift in consumer behavior next year due to AI?",
+                options: ["Are we likely to", "Must we", "Will we"],
+                answer: 0,
+                explanation: "Do not use 'may' for questions about possibility. Use 'could' or 'be likely to' (Are we likely to)."
+            },
+            {
+                textPart1: "The delicate marine ecosystem ",
+                errorText: "might be",
+                textPart2: " severely disrupted by the new underwater construction.",
+                options: ["can be", "must be", "will be"],
+                answer: 0,
+                explanation: "In formal contexts, we prefer 'can' and 'could' in passive structures over 'might' or 'may'."
+            },
+            {
+                textPart1: "After reading the brief, I ",
+                errorText: "may",
+                textPart2: " understand his reluctance to authorize the corporate merger.",
+                options: ["can", "must", "will"],
+                answer: 0,
+                explanation: "We prefer 'can' or 'could' with verbs of thinking (like understand, remember, believe)."
+            },
+            {
+                textPart1: "She has been studying nonstop for 12 hours; she ",
+                errorText: "must not",
+                textPart2: " have any mental energy left for the test.",
+                options: ["can't", "shouldn't", "wouldn't"],
+                answer: 0,
+                explanation: "When making a negative deduction/conclusion, we use 'can't' or 'couldn't', not 'must not'."
+            },
+            {
+                textPart1: "When we worked together, he ",
+                errorText: "will",
+                textPart2: " often pace around the boardroom while brainstorming.",
+                options: ["would", "could", "should"],
+                answer: 0,
+                explanation: "To talk about characteristic behaviour or habits in the PAST, we use 'would'."
+            },
+            {
+                textPart1: "Based on the archaeological evidence, we ",
+                errorText: "have to",
+                textPart2: " conclude that these artifacts belong to the 15th century.",
+                options: ["must", "ought to", "will"],
+                answer: 0,
+                explanation: "We usually use 'must', rather than 'have to', when we logically conclude that something is true."
+            },
+            {
+                textPart1: "You ",
+                errorText: "haven't to",
+                textPart2: " attend the optional seminar if your schedule is too tight.",
+                options: ["don't have to", "mustn't", "don't need"],
+                answer: 0,
+                explanation: "The correct form to express that something is not necessary is 'don't have to' or 'needn't' (without 'to')."
+            },
+            {
+                textPart1: "When the wind shifted, I ",
+                errorText: "might",
+                textPart2: " smell the distinct scent of pine from the forest.",
+                options: ["could", "would", "must"],
+                answer: 0,
+                explanation: "We prefer 'can/could' with verbs of sense (smell, hear, see)."
+            },
+            {
+                textPart1: "It's a strict facility; employees ",
+                errorText: "don't have to",
+                textPart2: " share internal data with unauthorized personnel.",
+                options: ["must not", "needn't", "shouldn't"],
+                answer: 0,
+                explanation: "If it's a rule or order (not allowed), use 'must not'. 'Don't have to' just means it isn't necessary."
+            },
+            {
+                textPart1: "According to the official roadmap, they ",
+                errorText: "would",
+                textPart2: " launch the new software update early next month.",
+                options: ["will", "must", "could"],
+                answer: 0,
+                explanation: "'Will' is used to make a solid prediction about the future. 'Would' is for imaginary futures."
+            }
+        ];
+
+        const ex3Functions = [
+            "General ability in the past",
+            "Prediction about the future",
+            "Prediction about an imaginary future",
+            "Negative logical conclusion",
+            "Present characteristic behaviour/habit",
+            "Possibility (less certain)",
+            "Lack of necessity",
+            "Conclusion that something is true",
+            "Asking about possibility",
+            "Obligation / Desirable action"
+        ];
+
+        const ex3Data = [
+            {
+                sentence: "By the time she was ten, she <b>could</b> decipher incredibly complex musical scores.",
+                answer: 0 // General ability in the past
+            },
+            {
+                sentence: "I <b>wouldn't</b> invest heavily in that volatile startup if I were in your position.",
+                answer: 2 // Prediction about an imaginary future
+            },
+            {
+                sentence: "Those financial reports <b>can't</b> be accurate; there's a multi-million dollar discrepancy.",
+                answer: 3 // Negative logical conclusion
+            },
+            {
+                sentence: "During stressful board meetings, the CEO <b>will</b> invariably tap his gold pen rhythmically on the desk.",
+                answer: 4 // Present characteristic behaviour/habit
+            },
+            {
+                sentence: "The proposed environmental legislation <b>might</b> pass the senate, though it faces fierce corporate opposition.",
+                answer: 5 // Possibility (less certain)
+            },
+            {
+                sentence: "You <b>needn't</b> submit the supplementary background files unless the committee explicitly requests them.",
+                answer: 6 // Lack of necessity
+            },
+            {
+                sentence: "The pavement is completely soaked; it <b>must</b> have stormed heavily overnight.",
+                answer: 7 // Conclusion that something is true
+            },
+            {
+                sentence: "<b>Is</b> the board of directors <b>likely to</b> approve the requested budget increase for Q3?",
+                answer: 8 // Asking about possibility
+            },
+            {
+                sentence: "The integration of the new AI protocols <b>will</b> drastically reduce our data processing time.",
+                answer: 1 // Prediction about the future
+            },
+            {
+                sentence: "We <b>ought to</b> implement a more robust mental health program for our remote employees.",
+                answer: 9 // Obligation / Desirable action
+            }
+        ];
+
+        
+        // Tab Switching Logic
+        function switchTab(tabIndex) {
+            // Reset all tabs
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`tab${i}`).className = "flex-1 py-4 px-6 text-sm sm:text-base text-center transition-colors tab-inactive focus:outline-none";
+                document.getElementById(`ex${i}-container`).classList.add('hidden');
+            }
+            // Activate selected tab
+            document.getElementById(`tab${tabIndex}`).className = "flex-1 py-4 px-6 text-sm sm:text-base text-center transition-colors tab-active focus:outline-none";
+            const activeContainer = document.getElementById(`ex${tabIndex}-container`);
+            activeContainer.classList.remove('hidden');
+            
+            // Re-trigger animation
+            activeContainer.classList.remove('fade-in');
+            void activeContainer.offsetWidth; // trigger reflow
+            activeContainer.classList.add('fade-in');
+        }
+
+        // Initialize Form HTML
+        window.onload = function() {
+            renderEx1();
+            renderEx2();
+            renderEx3();
+        };
+
+        function renderEx1() {
+            const form = document.getElementById('ex1-form');
+            let html = '';
+            ex1Data.forEach((item, index) => {
+                html += `
+                <div class="p-5 border border-gray-200 rounded-xl bg-white shadow-sm hover:border-brand-300 transition-colors" id="ex1-q${index}-card">
+                    <p class="font-medium text-gray-800 mb-4 text-lg"><span class="text-brand-600 font-bold mr-2">${index + 1}.</span>${item.q}</p>
+                    <div class="flex flex-wrap gap-4">
+                        ${item.options.map((opt, optIndex) => `
+                            <label class="flex items-center gap-2 cursor-pointer bg-gray-50 px-4 py-2 rounded-lg border border-gray-200 hover:bg-brand-50 transition-colors">
+                                <input type="radio" name="ex1-q${index}" value="${optIndex}" class="w-4 h-4 text-brand-600 focus:ring-brand-500">
+                                <span class="text-gray-700 font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="ex1-exp${index}" class="explanation">
+                        <strong>Rule:</strong> ${item.explanation}
+                    </div>
+                </div>
+                `;
+            });
+            form.innerHTML = html;
+        }
+
+        function renderEx2() {
+            const form = document.getElementById('ex2-form');
+            let html = '';
+            ex2Data.forEach((item, index) => {
+                let optionsHtml = `<option value="" disabled selected>-- Select correction --</option>`;
+                item.options.forEach((opt, optIndex) => {
+                    optionsHtml += `<option value="${optIndex}">${opt}</option>`;
+                });
+
+                html += `
+                <div class="p-5 border border-gray-200 rounded-xl bg-white shadow-sm hover:border-brand-300 transition-colors" id="ex2-q${index}-card">
+                    <p class="text-sm text-gray-500 mb-1 font-semibold tracking-wide uppercase">Sentence ${index + 1}</p>
+                    <p class="text-lg text-gray-800 mb-4 leading-relaxed">
+                        ${item.textPart1} 
+                        <span class="inline-block relative">
+                            <span class="line-through text-red-400 decoration-red-400 decoration-2 mr-2">${item.errorText}</span>
+                            <select name="ex2-q${index}" class="appearance-none bg-gray-50 border border-gray-300 text-brand-700 font-semibold text-base rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 shadow-sm cursor-pointer inline-block min-w-[160px]">
+                                ${optionsHtml}
+                            </select>
+                        </span> 
+                        ${item.textPart2}
+                    </p>
+                    <div id="ex2-exp${index}" class="explanation">
+                        <strong>Rule:</strong> ${item.explanation}
+                    </div>
+                </div>
+                `;
+            });
+            form.innerHTML = html;
+        }
+
+        function renderEx3() {
+            const form = document.getElementById('ex3-form');
+            let html = '';
+            
+            // Build the standard options dropdown once
+            let optionsHtml = `<option value="" disabled selected>-- Select function --</option>`;
+            ex3Functions.forEach((func, funcIndex) => {
+                optionsHtml += `<option value="${funcIndex}">${func}</option>`;
+            });
+
+            ex3Data.forEach((item, index) => {
+                html += `
+                <div class="flex flex-col md:flex-row md:items-center justify-between p-5 border border-gray-200 rounded-xl bg-white shadow-sm hover:border-brand-300 transition-colors gap-4" id="ex3-q${index}-card">
+                    <p class="text-lg text-gray-800 flex-1"><span class="text-brand-600 font-bold mr-2">${index + 1}.</span>${item.sentence}</p>
+                    <div class="w-full md:w-64 shrink-0">
+                        <select name="ex3-q${index}" class="appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 shadow-sm cursor-pointer truncate">
+                            ${optionsHtml}
+                        </select>
+                    </div>
+                </div>
+                `;
+            });
+            form.innerHTML = html;
+        }
+
+
+        function checkEx1() {
+            let score = 0;
+            let answered = 0;
+            
+            ex1Data.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="ex1-q${index}"]:checked`);
+                const card = document.getElementById(`ex1-q${index}-card`);
+                const exp = document.getElementById(`ex1-exp${index}`);
+                
+                if (selected) {
+                    answered++;
+                    if (parseInt(selected.value) === item.answer) {
+                        score++;
+                        card.className = "p-5 border-2 border-green-500 rounded-xl bg-green-50 shadow-sm transition-colors";
+                    } else {
+                        card.className = "p-5 border-2 border-red-400 rounded-xl bg-red-50 shadow-sm transition-colors";
+                    }
+                    exp.style.display = 'block'; // Always show explanation after checking
+                } else {
+                    card.className = "p-5 border border-gray-200 rounded-xl bg-white shadow-sm ring-2 ring-yellow-400 transition-colors";
+                }
+            });
+
+            if (answered < 10) {
+                showModal("Incomplete", "Please answer all 10 questions before checking.", "warning");
+            } else {
+                showScoreModal(score, 10);
+            }
+        }
+
+        function checkEx2() {
+            let score = 0;
+            let answered = 0;
+
+            ex2Data.forEach((item, index) => {
+                const select = document.querySelector(`select[name="ex2-q${index}"]`);
+                const card = document.getElementById(`ex2-q${index}-card`);
+                const exp = document.getElementById(`ex2-exp${index}`);
+
+                if (select.value !== "") {
+                    answered++;
+                    if (parseInt(select.value) === item.answer) {
+                        score++;
+                        card.className = "p-5 border-2 border-green-500 rounded-xl bg-green-50 shadow-sm transition-colors";
+                        select.classList.remove('text-brand-700');
+                        select.classList.add('text-green-700', 'border-green-500');
+                    } else {
+                        card.className = "p-5 border-2 border-red-400 rounded-xl bg-red-50 shadow-sm transition-colors";
+                        select.classList.remove('text-brand-700');
+                        select.classList.add('text-red-700', 'border-red-400');
+                    }
+                    exp.style.display = 'block';
+                } else {
+                    card.className = "p-5 border border-gray-200 rounded-xl bg-white shadow-sm ring-2 ring-yellow-400 transition-colors";
+                }
+            });
+
+            if (answered < 10) {
+                showModal("Incomplete", "Please fix all 10 sentences before checking.", "warning");
+            } else {
+                showScoreModal(score, 10);
+            }
+        }
+
+        function checkEx3() {
+            let score = 0;
+            let answered = 0;
+
+            ex3Data.forEach((item, index) => {
+                const select = document.querySelector(`select[name="ex3-q${index}"]`);
+                const card = document.getElementById(`ex3-q${index}-card`);
+
+                if (select.value !== "") {
+                    answered++;
+                    if (parseInt(select.value) === item.answer) {
+                        score++;
+                        card.className = "flex flex-col md:flex-row md:items-center justify-between p-5 border-2 border-green-500 rounded-xl bg-green-50 shadow-sm transition-colors gap-4";
+                        select.classList.add('border-green-500', 'text-green-800', 'font-medium');
+                    } else {
+                        card.className = "flex flex-col md:flex-row md:items-center justify-between p-5 border-2 border-red-400 rounded-xl bg-red-50 shadow-sm transition-colors gap-4";
+                        select.classList.add('border-red-400', 'text-red-800', 'font-medium');
+                    }
+                } else {
+                    card.className = "flex flex-col md:flex-row md:items-center justify-between p-5 border border-gray-200 rounded-xl bg-white shadow-sm ring-2 ring-yellow-400 transition-colors gap-4";
+                }
+            });
+
+            if (answered < 10) {
+                showModal("Incomplete", "Please match all 10 sentences before checking.", "warning");
+            } else {
+                showScoreModal(score, 10);
+            }
+        }
+
+        
+        function showScoreModal(score, total) {
+            let title = "Results";
+            let type = "info";
+            let msg = `You scored <strong>${score} out of ${total}</strong>. `;
+            
+            if (score === total) {
+                title = "Excellent Work!";
+                type = "success";
+                msg += "You have completely mastered these advanced modal rules.";
+            } else if (score >= 7) {
+                title = "Great Job!";
+                type = "success";
+                msg += "You have a solid grasp, but review the explanations for the ones you missed.";
+            } else {
+                title = "Keep Practicing";
+                type = "warning";
+                msg += "Review the rules provided in the reference images and check the explanations below each question.";
+            }
+
+            showModal(title, msg, type);
+        }
+
+        function showModal(title, message, type) {
+            const modal = document.getElementById('message-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalHeader = document.getElementById('modal-header');
+
+            modalTitle.innerText = title;
+            modalBody.innerHTML = message;
+
+            // Set Icon and colors based on type
+            let iconSvg = '';
+            if (type === 'success') {
+                modalHeader.className = "px-6 py-4 border-b flex items-center gap-3 bg-green-50 border-green-200";
+                modalTitle.className = "text-lg font-bold text-green-800";
+                iconSvg = `<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            } else if (type === 'warning') {
+                modalHeader.className = "px-6 py-4 border-b flex items-center gap-3 bg-yellow-50 border-yellow-200";
+                modalTitle.className = "text-lg font-bold text-yellow-800";
+                iconSvg = `<svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+            } else {
+                modalHeader.className = "px-6 py-4 border-b flex items-center gap-3 bg-brand-50 border-brand-200";
+                modalTitle.className = "text-lg font-bold text-brand-800";
+                iconSvg = `<svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            }
+
+            modalHeader.innerHTML = iconSvg + `<h3 id="modal-title" class="${modalTitle.className}">${title}</h3>`;
+
+            modal.classList.remove('hidden');
+            // Trigger reflow
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.firstElementChild.classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('message-modal');
+            modal.classList.add('opacity-0');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // match duration
+        }
+    </script>
+</body>
+</html>
