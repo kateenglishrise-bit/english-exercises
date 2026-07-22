@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Advanced Modal Verbs - Interactive Reference & Practice</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(16, 185, 129, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-emerald-500/20">
+                    <i class="fa-solid font-bold fa-layer-group"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-teal-300">
+                        Advanced Modals Lab
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Interactive Grammar & Practice Guide</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-sm font-medium">
+                <button onclick="switchTab('cards')" id="tab-cards" class="nav-btn active px-4 py-1.5 rounded-lg text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-700 shadow-sm transition">
+                    <i class="fa-solid fa-book-open mr-2"></i>Rules & Cards
+                </button>
+                <button onclick="switchTab('builder')" id="tab-builder" class="nav-btn px-4 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Sentence Builder
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-btn px-4 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+                    <i class="fa-solid fa-circle-question mr-2"></i>Practice Quiz
+                </button>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Toggle Theme">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Bar -->
+        <div class="flex md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2 py-1 justify-around text-xs font-semibold">
+            <button onclick="switchTab('cards')" id="mob-tab-cards" class="flex flex-col items-center py-1 text-emerald-600 dark:text-emerald-400">
+                <i class="fa-solid fa-book-open text-base mb-0.5"></i>Rules
+            </button>
+            <button onclick="switchTab('builder')" id="mob-tab-builder" class="flex flex-col items-center py-1 text-slate-500 dark:text-slate-400">
+                <i class="fa-solid fa-wand-magic-sparkles text-base mb-0.5"></i>Builder
+            </button>
+            <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="flex flex-col items-center py-1 text-slate-500 dark:text-slate-400">
+                <i class="fa-solid fa-circle-question text-base mb-0.5"></i>Quiz
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- ================= SECTION 1: RULES & CARDS ================= -->
+        <section id="sec-cards" class="space-y-6">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl font-bold select-none">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="max-w-3xl relative z-10">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold backdrop-blur-md mb-3">
+                        <i class="fa-solid fa-sparkles"></i> Grammar Guide
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3">
+                        Advanced Modals & Perfect Aspects
+                    </h2>
+                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
+                        Master expressing future possibilities, past deductions, regrets, and continuous past activities using modal auxiliary verbs.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Controls: Search & Category Filter -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="relative w-full sm:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="rule-search" placeholder="Search rules or keywords..." class="w-full pl-10 pr-4 py-2 rounded-lg text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 custom-scrollbar">
+                    <button onclick="filterCategory('all')" class="cat-filter active px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white whitespace-nowrap">All Rules (7)</button>
+                    <button onclick="filterCategory('possibility')" class="cat-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">Future & Possibility</button>
+                    <button onclick="filterCategory('deduction')" class="cat-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">Past Deduction</button>
+                    <button onclick="filterCategory('regret')" class="cat-filter px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">Regret & Advice</button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div id="rules-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will inject cards here -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: SENTENCE BUILDER ================= -->
+        <section id="sec-builder" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 dark:border-slate-700">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-emerald-500"></i> Interactive Sentence Builder
+                    </h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Select components step-by-step to construct sentences and analyze their grammatical meaning.</p>
+                </div>
+
+                <!-- Builder Form -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                    <!-- Subject -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">1. Subject</label>
+                        <select id="builder-subj" class="w-full p-2.5 rounded-lg text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-emerald-500">
+                            <option value="She">She</option>
+                            <option value="They">They</option>
+                            <option value="I">I</option>
+                            <option value="The detective">The detective</option>
+                            <option value="John">John</option>
+                        </select>
+                    </div>
+
+                    <!-- Rule Select -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">2. Rule / Structure</label>
+                        <select id="builder-rule" onchange="updateBuilderVerbs()" class="w-full p-2.5 rounded-lg text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-emerald-500">
+                            <option value="1">May/Might/Could + Have + Past Participle</option>
+                            <option value="2">May/Might/Could + Have Been + Present Participle</option>
+                            <option value="3">Would / Will + Have + Past Participle</option>
+                            <option value="4">Should / Ought to + Have + Past Participle</option>
+                            <option value="5">Can't / Couldn't + Have + Past Participle</option>
+                            <option value="6">Must + Have + Past Participle</option>
+                            <option value="7a">Must + Have To + Verb (Present obligation deduction)</option>
+                            <option value="7b">Must + Have Had To + Verb (Past obligation deduction)</option>
+                        </select>
+                    </div>
+
+                    <!-- Modal Selection -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">3. Modal Choice</label>
+                        <select id="builder-modal" class="w-full p-2.5 rounded-lg text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-emerald-500">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <!-- Verb/Action -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">4. Action / Context</label>
+                        <select id="builder-action" class="w-full p-2.5 rounded-lg text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-emerald-500">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Output Display -->
+                <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 border border-emerald-200 dark:border-emerald-800 text-center relative">
+                    <span class="text-xs font-bold tracking-wider uppercase text-emerald-600 dark:text-emerald-400">Generated Sentence</span>
+                    <div id="generated-sentence" class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-white my-3">
+                        <!-- Result -->
+                    </div>
+                    <p id="generated-meaning" class="text-sm text-slate-600 dark:text-slate-300 italic max-w-2xl mx-auto">
+                        <!-- Meaning -->
+                    </p>
+                    <div class="mt-4 flex items-center justify-center gap-3">
+                        <button onclick="speakText(document.getElementById('generated-sentence').innerText)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center gap-2 transition shadow-md shadow-emerald-600/20">
+                            <i class="fa-solid fa-volume-high"></i> Listen Pronunciation
+                        </button>
+                        <button onclick="copyGenerated()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-2 transition">
+                            <i class="fa-solid fa-copy"></i> Copy Sentence
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: PRACTICE QUIZ ================= -->
+        <section id="sec-quiz" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 dark:border-slate-700 max-w-3xl mx-auto">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-emerald-500"></i> Interactive Practice Quiz
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Test your understanding of advanced modal rules</p>
+                    </div>
+                    <div class="text-right">
+                        <span id="quiz-score" class="text-lg font-black text-emerald-600 dark:text-emerald-400">Score: 0 / 0</span>
+                    </div>
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Dynamic Question -->
+                </div>
+
+                <div class="mt-6 flex justify-between items-center pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <button id="quiz-prev" onclick="prevQuestion()" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> Previous
+                    </button>
+                    <button id="quiz-next" onclick="nextQuestion()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md">
+                        Next Question <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600 text-base"></i>
+        <span id="toast-msg">Notification Message</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        
+        // 7 Rules extracted from user's images
+        const GRAMMAR_RULES = [
+            {
+                id: 1,
+                category: "possibility",
+                formulas: [
+                    "May / might / could + have + past participle",
+                    "May / might / could + be + present participle"
+                ],
+                title: "Future / Ongoing Possibility",
+                meaning: "To say it is possible that something will happen in the future, or is happening now.",
+                badge: "Possibility",
+                icon: "fa-regular fa-clock",
+                examples: [
+                    {
+                        sentence: "I <strong>might have finished</strong> the report by tomorrow afternoon.",
+                        context: "Expressing a future possible completion."
+                    },
+                    {
+                        sentence: "She <strong>may be sleeping</strong> right now, so try not to make noise.",
+                        context: "Ongoing possibility at present."
+                    },
+                    {
+                        sentence: "We <strong>could have arrived</strong> early if traffic clears up.",
+                        context: "Future potential outcome."
+                    }
+                ],
+                explanation: "Use this structure when predicting future outcomes or ongoing present possibilities with uncertainty."
+            },
+            {
+                id: 2,
+                category: "possibility",
+                formulas: [
+                    "May / might / could + have been + present participle"
+                ],
+                title: "Past Continuous Possibility",
+                meaning: "Situations or activities that were possibly happening at a particular past time.",
+                badge: "Past Continuous",
+                icon: "fa-solid fa-spinner",
+                examples: [
+                    {
+                        sentence: "He didn't answer the door; he <strong>might have been taking</strong> a shower.",
+                        context: "Action possibly in progress at that moment."
+                    },
+                    {
+                        sentence: "They <strong>could have been sleeping</strong> when you called last night.",
+                        context: "Ongoing past event possibility."
+                    },
+                    {
+                        sentence: "She <strong>may have been working</strong> late at the office.",
+                        context: "Continuous past activity."
+                    }
+                ],
+                explanation: "Focuses on the continuous nature of an unverified action taking place at a specific moment in the past."
+            },
+            {
+                id: 3,
+                category: "possibility",
+                formulas: [
+                    "Would / will + have + past participle"
+                ],
+                title: "Imaginary Past Situation & Future Perfect",
+                meaning: "Imaginary past situation (hypothetical result in a past conditional state).",
+                badge: "Hypothetical Past",
+                icon: "fa-solid fa-cloud-moon",
+                examples: [
+                    {
+                        sentence: "If I had known about the event, I <strong>would have attended</strong>.",
+                        context: "Imaginary past situation that didn't happen."
+                    },
+                    {
+                        sentence: "She <strong>would have helped</strong> you, but she was out of town.",
+                        context: "Past willingness under hypothetical conditions."
+                    },
+                    {
+                        sentence: "By 8 PM tonight, they <strong>will have finished</strong> the exam.",
+                        context: "Future completion marker (Will + have + V3)."
+                    }
+                ],
+                explanation: "'Would have + V3' is key for Third Conditionals to talk about unreal past outcomes."
+            },
+            {
+                id: 4,
+                category: "regret",
+                formulas: [
+                    "Should / ought to + have + past participle"
+                ],
+                title: "Regret & Past Criticism",
+                meaning: "Something that didn't happen in the past, particularly when we want to imply some regret or criticism.",
+                badge: "Regret / Advice",
+                icon: "fa-solid fa-heart-crack",
+                examples: [
+                    {
+                        sentence: "I <strong>should have studied</strong> harder for the final exam.",
+                        context: "Expressing personal regret about past inaction."
+                    },
+                    {
+                        sentence: "You <strong>ought to have invited</strong> Sarah to your party.",
+                        context: "Criticizing someone else's past decision."
+                    },
+                    {
+                        sentence: "We <strong>shouldn't have eaten</strong> that leftover pizza.",
+                        context: "Regretting a past choice."
+                    }
+                ],
+                explanation: "Indicates that the ideal or recommended action was omitted in the past."
+            },
+            {
+                id: 5,
+                category: "deduction",
+                formulas: [
+                    "Can't / couldn't + have + past participle"
+                ],
+                title: "Negative Past Deduction",
+                meaning: "To draw a conclusion about a past event, saying that it was not possible.",
+                badge: "Impossible Past",
+                icon: "fa-solid fa-circle-xmark",
+                examples: [
+                    {
+                        sentence: "He <strong>can't have stolen</strong> the money; he was on vacation in Spain!",
+                        context: "Certainty that a past event was impossible."
+                    },
+                    {
+                        sentence: "She <strong>couldn't have seen</strong> me because I was wearing a mask.",
+                        context: "Logical impossibility in the past."
+                    }
+                ],
+                explanation: "Used when evidence strongly indicates an event was completely impossible."
+            },
+            {
+                id: 6,
+                category: "deduction",
+                formulas: [
+                    "Must + have + past participle"
+                ],
+                title: "Positive Past Deduction",
+                meaning: "To draw a conclusion about something happening at a particular past time, saying that it was likely or certain.",
+                badge: "Certain Deduction",
+                icon: "fa-solid fa-magnifying-glass",
+                examples: [
+                    {
+                        sentence: "The streets are soaking wet; it <strong>must have rained</strong> heavily last night.",
+                        context: "Logical conclusion based on present evidence."
+                    },
+                    {
+                        sentence: "She got top scores on the test; she <strong>must have revised</strong> thoroughly.",
+                        context: "Strong deduction about past effort."
+                    }
+                ],
+                explanation: "Used when you are almost 100% sure about what happened in the past based on current clues."
+            },
+            {
+                id: 7,
+                category: "deduction",
+                formulas: [
+                    "Must have (had) to"
+                ],
+                title: "Deduction of Necessity (Present & Past)",
+                meaning: "To draw a conclusion based on what we know about a present situation (must have to), and 'must have had to' to conclude something about a past situation.",
+                badge: "Obligation Deduction",
+                icon: "fa-solid fa-clipboard-check",
+                examples: [
+                    {
+                        sentence: "He is never at his desk at 3 PM; he <strong>must have to attend</strong> the daily briefing.",
+                        context: "Present conclusion about routine obligation."
+                    },
+                    {
+                        sentence: "There were no buses running yesterday, so they <strong>must have had to walk</strong> home.",
+                        context: "Deduction about a past necessity/obligation."
+                    }
+                ],
+                explanation: "Differentiates between concluding a present ongoing obligation vs. a past required action."
+            }
+        ];
+
+        // Quiz Question Bank
+        const QUIZ_DATA = [
+            {
+                q: "Look at the wet ground! It ________ heavily during the night.",
+                options: ["should have rained", "must have rained", "couldn't have rained", "ought to rain"],
+                correct: 1,
+                explanation: "'Must have + past participle' is used to draw a certain logical deduction about a past event."
+            },
+            {
+                q: "I failed my driving test. I ________ more before taking it.",
+                options: ["must have practiced", "can't have practiced", "should have practiced", "will have practiced"],
+                correct: 2,
+                explanation: "'Should have + past participle' expresses regret about an action that didn't happen in the past."
+            },
+            {
+                q: "He ________ the key because he wasn't anywhere near the building.",
+                options: ["can't have taken", "must have taken", "should have taken", "might be taking"],
+                correct: 0,
+                explanation: "'Can't / couldn't have + V3' concludes that a past event was impossible."
+            },
+            {
+                q: "Why didn't she pick up the phone at 10 PM? She ________ a bath.",
+                options: ["must have had to", "might have been taking", "should have taken", "would have taken"],
+                correct: 1,
+                explanation: "'Might have been + present participle' describes a situation that was possibly happening continuously at a specific past time."
+            },
+            {
+                q: "There were no flights left, so they ________ take the overnight train instead.",
+                options: ["must have had to", "should have to", "can't have to", "will have to"],
+                correct: 0,
+                explanation: "'Must have had to' is used to conclude something about a necessary obligation in a past situation."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizAnswers = new Array(QUIZ_DATA.length).fill(null);
+
+
+        // Render Rules Cards
+        function renderCards(rules) {
+            const container = document.getElementById('rules-grid');
+            container.innerHTML = '';
+
+            rules.forEach(rule => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700/80 shadow-sm card-hover flex flex-col justify-between";
+                
+                let formulasHTML = rule.formulas.map(f => 
+                    `<div class="font-mono text-xs font-semibold px-3 py-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 rounded-lg border border-emerald-100 dark:border-emerald-900/50 my-1">
+                        ${f}
+                    </div>`
+                ).join('');
+
+                let examplesHTML = rule.examples.map(ex => 
+                    `<li class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800">
+                        <div class="font-medium text-slate-800 dark:text-slate-200 mb-0.5">${ex.sentence}</div>
+                        <span class="text-[10px] text-slate-400 dark:text-slate-500 font-sans italic">${ex.context}</span>
+                    </li>`
+                ).join('');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">
+                                <i class="${rule.icon} mr-1"></i>${rule.badge}
+                            </span>
+                            <span class="text-xs text-slate-400 font-semibold">Rule #${rule.id}</span>
+                        </div>
+                        
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">${rule.title}</h3>
+                        
+                        <div class="mb-4">
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Structure Formula</span>
+                            ${formulasHTML}
+                        </div>
+
+                        <div class="mb-4">
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Grammatical Function</span>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 font-medium bg-slate-50 dark:bg-slate-900/80 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800">
+                                ${rule.meaning}
+                            </p>
+                        </div>
+
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1 block">Context Examples</span>
+                            <ul class="space-y-2">
+                                ${examplesHTML}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-700/60 flex justify-end">
+                        <button onclick="speakText('${rule.title}. ${rule.meaning}')" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Rule
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filtering & Search
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-filter').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
+            });
+            event.target.classList.add('bg-emerald-600', 'text-white');
+            
+            const query = document.getElementById('rule-search').value.toLowerCase();
+            let filtered = GRAMMAR_RULES;
+
+            if (cat !== 'all') {
+                filtered = filtered.filter(r => r.category === cat);
+            }
+
+            if (query) {
+                filtered = filtered.filter(r => 
+                    r.title.toLowerCase().includes(query) || 
+                    r.meaning.toLowerCase().includes(query) ||
+                    r.formulas.some(f => f.toLowerCase().includes(query))
+                );
+            }
+
+            renderCards(filtered);
+        }
+
+        document.getElementById('rule-search').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = GRAMMAR_RULES.filter(r => 
+                r.title.toLowerCase().includes(query) || 
+                r.meaning.toLowerCase().includes(query) ||
+                r.formulas.some(f => f.toLowerCase().includes(query)) ||
+                r.examples.some(ex => ex.sentence.toLowerCase().includes(query))
+            );
+            renderCards(filtered);
+        });
+
+
+        // Builder Data Options
+        const BUILDER_DATA = {
+            "1": {
+                modals: ["might", "may", "could"],
+                actions: [
+                    { label: "finished the project by tomorrow", full: "have finished the project by tomorrow", meaning: "Predicts possible future completion of the project." },
+                    { label: "be waiting at the station right now", full: "be waiting at the station right now", meaning: "Expresses possible ongoing action at the present moment." }
+                ]
+            },
+            "2": {
+                modals: ["might", "may", "could"],
+                actions: [
+                    { label: "been sleeping when you called", full: "have been sleeping when you called", meaning: "Refers to a continuous action possibly in progress at that past time." },
+                    { label: "been working on the report all night", full: "have been working on the report all night", meaning: "Suggests ongoing past effort." }
+                ]
+            },
+            "3": {
+                modals: ["would", "will"],
+                actions: [
+                    { label: "have joined us if invited", full: "have joined us if invited", meaning: "An imaginary past outcome dependent on an unreal condition." },
+                    { label: "have completed the course by Friday", full: "have completed the course by Friday", meaning: "A future event that will be completed by a certain point." }
+                ]
+            },
+            "4": {
+                modals: ["should", "ought to"],
+                actions: [
+                    { label: "have called the doctor earlier", full: "have called the doctor earlier", meaning: "Expresses regret or criticism that a recommended action wasn't taken." },
+                    { label: "have double-checked the reservation", full: "have double-checked the reservation", meaning: "Criticizes a past mistake or oversight." }
+                ]
+            },
+            "5": {
+                modals: ["can't", "couldn't"],
+                actions: [
+                    { label: "have stolen the money yesterday", full: "have stolen the money yesterday", meaning: "Draws a past conclusion that this action was logically impossible." },
+                    { label: "have seen me from that distance", full: "have seen me from that distance", meaning: "Concludes impossibility in past context." }
+                ]
+            },
+            "6": {
+                modals: ["must"],
+                actions: [
+                    { label: "have left their keys on the table", full: "have left their keys on the table", meaning: "Draws a conclusion of strong past likelihood based on evidence." },
+                    { label: "have worked hard for this award", full: "have worked hard for this award", meaning: "Logical deduction of certainty regarding past effort." }
+                ]
+            },
+            "7a": {
+                modals: ["must"],
+                actions: [
+                    { label: "have to work every weekend", full: "have to work every weekend", meaning: "Draws a conclusion about a present ongoing obligation." }
+                ]
+            },
+            "7b": {
+                modals: ["must"],
+                actions: [
+                    { label: "have had to take a taxi home", full: "have had to take a taxi home", meaning: "Concludes that a past situation forced this required obligation." }
+                ]
+            }
+        };
+
+        function updateBuilderVerbs() {
+            const ruleVal = document.getElementById('builder-rule').value;
+            const modalSelect = document.getElementById('builder-modal');
+            const actionSelect = document.getElementById('builder-action');
+
+            const data = BUILDER_DATA[ruleVal];
+
+            modalSelect.innerHTML = data.modals.map(m => `<option value="${m}">${m}</option>`).join('');
+            actionSelect.innerHTML = data.actions.map((act, i) => `<option value="${i}">${act.label}</option>`).join('');
+
+            updateBuilderOutput();
+        }
+
+        function updateBuilderOutput() {
+            const subj = document.getElementById('builder-subj').value;
+            const ruleVal = document.getElementById('builder-rule').value;
+            const modal = document.getElementById('builder-modal').value;
+            const actionIdx = document.getElementById('builder-action').value;
+
+            const actionObj = BUILDER_DATA[ruleVal].actions[actionIdx] || BUILDER_DATA[ruleVal].actions[0];
+
+            const sentence = `${subj} <span class="text-emerald-600 dark:text-emerald-400 underline font-black">${modal} ${actionObj.full}</span>.`;
+            
+            document.getElementById('generated-sentence').innerHTML = sentence;
+            document.getElementById('generated-meaning').innerHTML = `<i class="fa-solid fa-circle-info mr-1 text-emerald-500"></i> Meaning: ${actionObj.meaning}`;
+        }
+
+        document.getElementById('builder-subj').addEventListener('change', updateBuilderOutput);
+        document.getElementById('builder-modal').addEventListener('change', updateBuilderOutput);
+        document.getElementById('builder-action').addEventListener('change', updateBuilderOutput);
+
+
+        function renderQuizQuestion() {
+            const qData = QUIZ_DATA[currentQuizIndex];
+            const container = document.getElementById('quiz-container');
+
+            let optionsHTML = qData.options.map((opt, idx) => {
+                let isSelected = quizAnswers[currentQuizIndex] === idx;
+                let btnClass = "w-full p-3.5 rounded-xl border text-left text-xs font-semibold transition flex items-center justify-between ";
+                
+                if (quizAnswers[currentQuizIndex] !== null) {
+                    if (idx === qData.correct) {
+                        btnClass += "bg-emerald-100 border-emerald-500 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200 dark:border-emerald-500";
+                    } else if (isSelected) {
+                        btnClass += "bg-red-100 border-red-500 text-red-900 dark:bg-red-950 dark:text-red-200 dark:border-red-500";
+                    } else {
+                        btnClass += "bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 opacity-60";
+                    }
+                } else {
+                    btnClass += "bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500";
+                }
+
+                return `
+                    <button onclick="selectQuizOption(${idx})" ${quizAnswers[currentQuizIndex] !== null ? 'disabled' : ''} class="${btnClass}">
+                        <span>${String.fromCharCode(65 + idx)}. ${opt}</span>
+                        ${quizAnswers[currentQuizIndex] !== null && idx === qData.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>' : ''}
+                        ${quizAnswers[currentQuizIndex] !== null && isSelected && idx !== qData.correct ? '<i class="fa-solid fa-circle-xmark text-red-600 text-base"></i>' : ''}
+                    </button>
+                `;
+            }).join('');
+
+            let expHTML = quizAnswers[currentQuizIndex] !== null ? `
+                <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 mt-4 text-xs">
+                    <span class="font-bold text-emerald-600 dark:text-emerald-400 block mb-1">
+                        <i class="fa-solid fa-lightbulb mr-1"></i> Grammar Explanation:
+                    </span>
+                    <p class="text-slate-600 dark:text-slate-300">${qData.explanation}</p>
+                </div>
+            ` : '';
+
+            container.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between text-xs text-slate-400 font-bold mb-2">
+                        <span>QUESTION ${currentQuizIndex + 1} OF ${QUIZ_DATA.length}</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4">
+                        ${qData.q}
+                    </h3>
+                    <div class="space-y-2.5">
+                        ${optionsHTML}
+                    </div>
+                    ${expHTML}
+                </div>
+            `;
+
+            document.getElementById('quiz-prev').disabled = currentQuizIndex === 0;
+            document.getElementById('quiz-next').innerText = currentQuizIndex === QUIZ_DATA.length - 1 ? "Finish Quiz" : "Next Question";
+            
+            updateScoreDisplay();
+        }
+
+        function selectQuizOption(idx) {
+            quizAnswers[currentQuizIndex] = idx;
+            renderQuizQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex < QUIZ_DATA.length - 1) {
+                currentQuizIndex++;
+                renderQuizQuestion();
+            } else {
+                showToast(`Quiz Completed! You scored ${calculateScore()} / ${QUIZ_DATA.length}`);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                renderQuizQuestion();
+            }
+        }
+
+        function calculateScore() {
+            return quizAnswers.reduce((score, ans, idx) => ans === QUIZ_DATA[idx].correct ? score + 1 : score, 0);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('quiz-score').innerText = `Score: ${calculateScore()} / ${QUIZ_DATA.length}`;
+        }
+
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing audio
+                const cleanText = text.replace(/<[^>]*>?/gm, ''); // Strip HTML
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.rate = 0.9;
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+                showToast("Playing pronunciation audio...");
+            } else {
+                showToast("Text-to-speech is not supported on this browser.");
+            }
+        }
+
+        function copyGenerated() {
+            const text = document.getElementById('generated-sentence').innerText;
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast("Copied sentence to clipboard!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+
+        function switchTab(tab) {
+            ['cards', 'builder', 'quiz'].forEach(t => {
+                document.getElementById(`sec-${t}`).classList.add('hidden');
+                
+                // Desktop buttons
+                const btn = document.getElementById(`tab-${t}`);
+                if (btn) {
+                    btn.classList.remove('active', 'text-emerald-700', 'dark:text-emerald-300', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
+                    btn.classList.add('text-slate-600', 'dark:text-slate-400');
+                }
+
+                // Mobile buttons
+                const mobBtn = document.getElementById(`mob-tab-${t}`);
+                if (mobBtn) {
+                    mobBtn.classList.remove('text-emerald-600', 'dark:text-emerald-400');
+                    mobBtn.classList.add('text-slate-500', 'dark:text-slate-400');
+                }
+            });
+
+            document.getElementById(`sec-${tab}`).classList.remove('hidden');
+
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'text-emerald-700', 'dark:text-emerald-300', 'bg-white', 'dark:bg-slate-700', 'shadow-sm');
+            }
+
+            const activeMobBtn = document.getElementById(`mob-tab-${tab}`);
+            if (activeMobBtn) {
+                activeMobBtn.classList.add('text-emerald-600', 'dark:text-emerald-400');
+            }
+        }
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Initialize Application on Window Load
+        window.onload = function() {
+            // Dark Mode system preference check
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            renderCards(GRAMMAR_RULES);
+            updateBuilderVerbs();
+            renderQuizQuestion();
+        };
+    </script>
+</body>
+</html>

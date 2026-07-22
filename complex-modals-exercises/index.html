@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Modals - Interactive Practice Worksheet</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+        @media print {
+            header, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .worksheet-card {
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Sticky Top Header -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-extrabold text-xl shadow-md shadow-emerald-500/20">
+                    <i class="fa-solid fa-file-pen"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl text-slate-900 dark:text-white leading-tight">
+                        Advanced Modals Worksheet
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Mastery Practice & Assessment</p>
+                </div>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex items-center gap-2">
+                <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-print"></i> <span class="hidden sm:inline">Print / Save PDF</span>
+                </button>
+                <button onclick="resetWorksheet()" class="px-3 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-semibold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">Reset</span>
+                </button>
+                <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sticky Score & Progress Bar -->
+    <div class="bg-emerald-800 text-white py-2.5 px-4 shadow-inner no-print sticky top-16 z-30">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-semibold">
+            <div class="flex items-center gap-4 w-full sm:w-auto justify-between">
+                <span><i class="fa-solid fa-list-check mr-1.5 text-emerald-300"></i> Completion: <span id="completion-text">0 / 20 Answered</span></span>
+                <span><i class="fa-solid fa-trophy mr-1.5 text-amber-300"></i> Current Score: <span id="score-text">0 / 20</span></span>
+            </div>
+            <!-- Progress Bar -->
+            <div class="w-full sm:w-64 bg-emerald-950/80 h-2.5 rounded-full overflow-hidden border border-emerald-600/50">
+                <div id="overall-progress-bar" class="bg-emerald-400 h-full w-0 transition-all duration-300"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Worksheet Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
+
+        <!-- Student Info Header Card (Printable Sheet Header) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm worksheet-card">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 mb-4 gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 mb-2 inline-block">
+                        Upper-Intermediate & Advanced (B2 - C1)
+                    </span>
+                    <h2 class="text-2xl font-black text-slate-900 dark:text-white">Grammar Worksheet: Advanced Modal Auxiliaries</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Deduction, Speculation, Continuous Past Possibility & Regret</p>
+                </div>
+                <!-- Printable Form Fields -->
+                <div class="grid grid-cols-2 sm:grid-cols-2 gap-3 text-xs w-full md:w-auto">
+                    <div class="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <span class="text-slate-400 block text-[10px] font-bold uppercase">Student Name:</span>
+                        <input type="text" placeholder="Enter name..." class="bg-transparent border-b border-slate-300 dark:border-slate-600 w-full focus:outline-none focus:border-emerald-500 font-semibold text-slate-800 dark:text-slate-200">
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <span class="text-slate-400 block text-[10px] font-bold uppercase">Date:</span>
+                        <input type="text" id="date-field" class="bg-transparent border-b border-slate-300 dark:border-slate-600 w-full focus:outline-none focus:border-emerald-500 font-semibold text-slate-800 dark:text-slate-200">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Rule Reference Accordion -->
+            <details class="group bg-emerald-50/60 dark:bg-emerald-950/30 rounded-xl border border-emerald-200 dark:border-emerald-900/60 overflow-hidden no-print">
+                <summary class="p-3.5 text-xs font-bold text-emerald-800 dark:text-emerald-300 cursor-pointer flex items-center justify-between select-none hover:bg-emerald-100/50 dark:hover:bg-emerald-950/50 transition">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-book-bookmark text-emerald-600"></i> Need help? Quick Grammar Rules Cheat Sheet (Rules 1 to 7)
+                    </span>
+                    <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+                </summary>
+                <div class="p-4 border-t border-emerald-200 dark:border-emerald-900/50 text-xs text-slate-700 dark:text-slate-300 space-y-3 bg-white dark:bg-slate-900">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">Rule 1 (Future/Ongoing Possibility):</span>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200 my-0.5">May / might / could + have + V3</code>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200">May / might / could + be + V-ing</code>
+                        </div>
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">Rule 2 (Past Continuous Possibility):</span>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200 my-0.5">May / might / could + have been + V-ing</code>
+                        </div>
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">Rule 3 (Hypothetical Past):</span>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200 my-0.5">Would / will + have + V3</code>
+                        </div>
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">Rule 4 (Past Regret / Criticism):</span>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200 my-0.5">Should / ought to + have + V3</code>
+                        </div>
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">Rule 5 (Negative Deduction):</span>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200 my-0.5">Can't / couldn't + have + V3</code>
+                        </div>
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">Rule 6 & 7 (Positive Deduction & Necessity):</span>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200 my-0.5">Must + have + V3 (Certain past)</code>
+                            <code class="block font-mono text-[11px] text-slate-800 dark:text-slate-200">Must have (had) to + Verb (Obligation)</code>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- EXERCISE 1: Multiple Choice / Dropdown Completion -->
+        <section class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm worksheet-card">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-sm flex items-center justify-center">1</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Exercise 1: Multiple Choice & Structure Selection</h3>
+                </div>
+                <span class="text-xs font-bold text-slate-400">6 Questions</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Choose the correct modal structure to complete each sentence according to the context provided.</p>
+
+            <div id="ex1-container" class="space-y-6">
+                <!-- Javascript will inject Ex 1 items here -->
+            </div>
+        </section>
+
+        <!-- EXERCISE 2: Sentence Rewriting & Transformation -->
+        <section class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm worksheet-card">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-sm flex items-center justify-center">2</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Exercise 2: Sentence Transformation</h3>
+                </div>
+                <span class="text-xs font-bold text-slate-400">5 Questions</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Rewrite each sentence using the modal keyword given in brackets so that it has the same meaning.</p>
+
+            <div id="ex2-container" class="space-y-6">
+                <!-- Javascript will inject Ex 2 items here -->
+            </div>
+        </section>
+
+        <!-- EXERCISE 3: Error Identification & Correction -->
+        <section class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm worksheet-card">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-sm flex items-center justify-center">3</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Exercise 3: Spot & Correct the Grammar Error</h3>
+                </div>
+                <span class="text-xs font-bold text-slate-400">4 Questions</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Each sentence contains ONE grammatical error in modal usage. Identify and type the corrected modal verb phrase.</p>
+
+            <div id="ex3-container" class="space-y-6">
+                <!-- Javascript will inject Ex 3 items here -->
+            </div>
+        </section>
+
+        <!-- EXERCISE 4: Dialogue Completion -->
+        <section class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm worksheet-card">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-sm flex items-center justify-center">4</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Exercise 4: Real-Life Context Dialogue</h3>
+                </div>
+                <span class="text-xs font-bold text-slate-400">5 Questions</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Complete the dialogue gaps with the most appropriate modal verb construction.</p>
+
+            <div id="ex4-container" class="space-y-6">
+                <!-- Javascript will inject Ex 4 items here -->
+            </div>
+        </section>
+
+        <!-- Worksheet Actions & Grade Summary Card -->
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-900 dark:to-slate-950 rounded-2xl p-6 sm:p-8 text-white shadow-xl no-print">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Worksheet Assessment</span>
+                    <h3 class="text-xl sm:text-2xl font-black mt-1">Ready to grade your worksheet?</h3>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl leading-relaxed">
+                        Click below to verify all your answers, view detailed explanations for every exercise, and compute your final score percentage.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                    <button onclick="checkAllAnswers()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 font-extrabold text-white text-sm transition shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-square-check text-lg"></i> Check All Answers
+                    </button>
+                </div>
+            </div>
+
+            <!-- Score Results Box (Hidden until checked) -->
+            <div id="results-box" class="hidden mt-6 pt-6 border-t border-slate-700/80">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase font-bold tracking-wider">Final Assessment Result</div>
+                        <div class="text-2xl sm:text-3xl font-black text-white mt-0.5">
+                            <span id="final-score">0</span> / 20 <span class="text-lg font-semibold text-emerald-400" id="final-percentage">(0%)</span>
+                        </div>
+                        <p id="grade-feedback" class="text-xs text-slate-300 italic mt-1"></p>
+                    </div>
+                    <div id="grade-badge" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-emerald-900/80 text-emerald-300 border border-emerald-700">
+                        Pending
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-6 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400 no-print">
+        <p>Interactive Advanced Modals Practice Worksheet &bull; Designed for ESL/EFL Advanced Grammar Studies</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Structures for Exercises
+        const EX1_DATA = [
+            {
+                id: "q1",
+                ruleId: 2,
+                ruleTitle: "Past Continuous Possibility (Rule 2)",
+                prompt: "1. Why didn't Sarah answer her room phone last night around 9 PM? <br><span class='text-slate-500 italic'>Context: Expressing an unverified activity in progress at that past moment.</span>",
+                sentenceBefore: "She ",
+                sentenceAfter: " (take) a bath when you called.",
+                options: [
+                    { value: "might have been taking", label: "might have been taking" },
+                    { value: "must take", label: "must take" },
+                    { value: "should have taken", label: "should have taken" },
+                    { value: "can't take", label: "can't take" }
+                ],
+                correct: "might have been taking",
+                explanation: "Rule 2: Use 'May/might/could + have been + present participle' for activities that were possibly happening continuously at a specific past time."
+            },
+            {
+                id: "q2",
+                ruleId: 6,
+                ruleTitle: "Positive Past Deduction (Rule 6)",
+                prompt: "2. Look! The pavement is completely soaked and there are huge puddles everywhere.",
+                sentenceBefore: "It ",
+                sentenceAfter: " heavily during the night.",
+                options: [
+                    { value: "should have rained", label: "should have rained" },
+                    { value: "must have rained", label: "must have rained" },
+                    { value: "might rain", label: "might rain" },
+                    { value: "would have rained", label: "would have rained" }
+                ],
+                correct: "must have rained",
+                explanation: "Rule 6: Use 'Must + have + past participle' when present evidence makes a past event almost certain."
+            },
+            {
+                id: "q3",
+                ruleId: 4,
+                ruleTitle: "Past Regret / Criticism (Rule 4)",
+                prompt: "3. I got a terrible grade on my final exam because I went out partying instead of revising.",
+                sentenceBefore: "I ",
+                sentenceAfter: " harder for the exam.",
+                options: [
+                    { value: "must have studied", label: "must have studied" },
+                    { value: "can't have studied", label: "can't have studied" },
+                    { value: "should have studied", label: "should have studied" },
+                    { value: "may be studying", label: "may be studying" }
+                ],
+                correct: "should have studied",
+                explanation: "Rule 4: Use 'Should / ought to + have + past participle' to express regret or criticism about an omitted past action."
+            },
+            {
+                id: "q4",
+                ruleId: 5,
+                ruleTitle: "Negative Past Deduction (Rule 5)",
+                prompt: "4. Alex was in Tokyo all weekend, so it was physically impossible for him to steal the money in London.",
+                sentenceBefore: "Alex ",
+                sentenceAfter: " the money.",
+                options: [
+                    { value: "can't have stolen", label: "can't have stolen" },
+                    { value: "must have stolen", label: "must have stolen" },
+                    { value: "should have stolen", label: "should have stolen" },
+                    { value: "would steal", label: "would steal" }
+                ],
+                correct: "can't have stolen",
+                explanation: "Rule 5: Use 'Can't / couldn't + have + past participle' to conclude that a past action was logically impossible."
+            },
+            {
+                id: "q5",
+                ruleId: 1,
+                ruleTitle: "Future Perfect / Possibility (Rule 1)",
+                prompt: "5. By 5 PM tomorrow, our team hopes to finalize the project contract.",
+                sentenceBefore: "We ",
+                sentenceAfter: " the project by late tomorrow afternoon.",
+                options: [
+                    { value: "might have finished", label: "might have finished" },
+                    { value: "must had to finish", label: "must had to finish" },
+                    { value: "should be finish", label: "should be finish" },
+                    { value: "couldn't have finish", label: "couldn't have finish" }
+                ],
+                correct: "might have finished",
+                explanation: "Rule 1: Use 'May / might / could + have + past participle' to say it is possible an event will be completed in the future."
+            },
+            {
+                id: "q6",
+                ruleId: 7,
+                ruleTitle: "Past Obligation Deduction (Rule 7)",
+                prompt: "6. All public transport was completely cancelled yesterday due to the strike, so they had no choice.",
+                sentenceBefore: "They ",
+                sentenceAfter: " walk 10 kilometers home.",
+                options: [
+                    { value: "must have had to", label: "must have had to" },
+                    { value: "must have to", label: "must have to" },
+                    { value: "should have to", label: "should have to" },
+                    { value: "can't have had to", label: "can't have had to" }
+                ],
+                correct: "must have had to",
+                explanation: "Rule 7: Use 'Must have had to + Verb' to conclude that a past situation created an obligatory necessity."
+            }
+        ];
+
+        const EX2_DATA = [
+            {
+                id: "q7",
+                ruleId: 3,
+                prompt: "1. I didn't go to the party because I didn't know about it. (WOULD)",
+                hint: "Start with: If I had known about the party, I ...",
+                acceptableAnswers: [
+                    "i would have gone to the party",
+                    "i would have attended the party",
+                    "i would have gone",
+                    "i would have attended"
+                ],
+                keyword: "WOULD HAVE + V3",
+                explanation: "Rule 3: Use 'Would + have + V3' for hypothetical/imaginary past conditional outcomes."
+            },
+            {
+                id: "q8",
+                ruleId: 6,
+                prompt: "2. I'm almost 100% sure that David left his laptop in the library. (MUST)",
+                hint: "David ... his laptop in the library.",
+                acceptableAnswers: [
+                    "david must have left",
+                    "he must have left",
+                    "must have left"
+                ],
+                keyword: "MUST HAVE LEFT",
+                explanation: "Rule 6: 'Must have + past participle' expresses strong positive certainty regarding a past action."
+            },
+            {
+                id: "q9",
+                ruleId: 4,
+                prompt: "3. It was a mistake for you to buy that expensive car. (OUGHT)",
+                hint: "You ... that expensive car.",
+                acceptableAnswers: [
+                    "you ought not to have bought",
+                    "you oughtn't to have bought",
+                    "ought not to have bought",
+                    "oughtn't to have bought"
+                ],
+                keyword: "OUGHT NOT TO HAVE BOUGHT",
+                explanation: "Rule 4: 'Ought to have + V3' (or negative 'ought not to have') criticizes past mistakes."
+            },
+            {
+                id: "q10",
+                ruleId: 5,
+                prompt: "4. It is impossible that Maria saw you because she was wearing blindfolds. (COULDN'T)",
+                hint: "Maria ... you.",
+                acceptableAnswers: [
+                    "maria couldn't have seen",
+                    "she couldn't have seen",
+                    "couldn't have seen"
+                ],
+                keyword: "COULDN'T HAVE SEEN",
+                explanation: "Rule 5: Use 'Couldn't + have + V3' for negative past deductions."
+            },
+            {
+                id: "q11",
+                ruleId: 7,
+                prompt: "5. Since Mr. Harrison is never at his desk on Monday mornings, I conclude he is obliged to attend the weekly board meeting. (HAS TO)",
+                hint: "He ... attend the board meeting every Monday morning.",
+                acceptableAnswers: [
+                    "must have to",
+                    "he must have to",
+                    "must have to attend"
+                ],
+                keyword: "MUST HAVE TO",
+                explanation: "Rule 7: Use 'Must have to + verb' to draw a present deduction regarding a recurring obligation."
+            }
+        ];
+
+        const EX3_DATA = [
+            {
+                id: "q12",
+                prompt: "1. Incorrect sentence: <em>\"She musted have forgotten her keys on the counter.\"</em>",
+                incorrectPart: "musted have forgotten",
+                correctForm: "must have forgotten",
+                explanation: "Modals like 'must' do not take regular past inflection endings (*musted). Use 'must have + V3'."
+            },
+            {
+                id: "q13",
+                prompt: "2. Incorrect sentence: <em>\"You should to have invited your brother to the dinner.\"</em>",
+                incorrectPart: "should to have invited",
+                correctForm: "should have invited",
+                explanation: "'Should' is followed directly by 'have + V3' without the infinitive particle 'to' (unlike 'ought to')."
+            },
+            {
+                id: "q14",
+                prompt: "3. Incorrect sentence: <em>\"They can't has been working all night without getting tired.\"</em>",
+                incorrectPart: "can't has been",
+                correctForm: "can't have been",
+                explanation: "Modal verbs are always followed by the base auxiliary form 'have', never 'has'."
+            },
+            {
+                id: "q15",
+                prompt: "4. Incorrect sentence: <em>\"At 8 PM last night, he might was taking a shower.\"</em>",
+                incorrectPart: "might was taking",
+                correctForm: "might have been taking",
+                explanation: "For past continuous possibility, use 'might have been + V-ing', not 'might was'."
+            }
+        ];
+
+        const EX4_DATA = [
+            {
+                id: "q16",
+                speakerA: "Detective Holmes:",
+                lineA: "The front door was locked from the inside. How did the suspect enter?",
+                speakerB: "Assistant Watson:",
+                lineB: "He ________ (climb) through the open second-floor window!",
+                options: ["must have climbed", "should climb", "would have climb", "must had to climb"],
+                correct: "must have climbed",
+                explanation: "Logical past deduction based on the clue of a locked front door."
+            },
+            {
+                id: "q17",
+                speakerA: "Anna:",
+                lineA: "I have a splitting headache today after staying up until 3 AM.",
+                speakerB: "Ben:",
+                lineB: "You ________ (go) to bed much earlier!",
+                options: ["should have gone", "might be going", "couldn't have gone", "will have gone"],
+                correct: "should have gone",
+                explanation: "Advice / regret about an action that was recommended but not taken."
+            },
+            {
+                id: "q18",
+                speakerA: "Mark:",
+                lineA: "Where is Clara? She's usually prompt for meetings.",
+                speakerB: "Lisa:",
+                lineB: "She ________ (stuck) in morning traffic right now.",
+                options: ["might be stuck", "should have stuck", "must had stuck", "couldn't be stuck"],
+                correct: "might be stuck",
+                explanation: "Present possibility about an ongoing state."
+            },
+            {
+                id: "q19",
+                speakerA: "John:",
+                lineA: "Did Tom buy that new smartphone yesterday?",
+                speakerB: "Paul:",
+                lineB: "No, he ________ (buy) it because the electronics store was closed all day.",
+                options: ["couldn't have bought", "must have bought", "should have bought", "would have bought"],
+                correct: "couldn't have bought",
+                explanation: "Negative past deduction (the closed store makes the purchase impossible)."
+            },
+            {
+                id: "q20",
+                speakerA: "Emma:",
+                lineA: "Why did you take the bus instead of driving your car yesterday?",
+                speakerB: "Jack:",
+                lineB: "My car engine broke down, so I ________ (take) the bus.",
+                options: ["must have had to take", "can't have taken", "might have take", "will have taken"],
+                correct: "must have had to take",
+                explanation: "Deduction of past forced obligation due to circumstance."
+            }
+        ];
+
+        function renderExercise1() {
+            const container = document.getElementById('ex1-container');
+            container.innerHTML = EX1_DATA.map((item, idx) => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950 px-2 py-0.5 rounded">
+                            ${item.ruleTitle}
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">${item.prompt}</p>
+                    <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        <span>${item.sentenceBefore}</span>
+                        <select id="input-${item.id}" onchange="updateProgress()" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 text-xs text-emerald-700 dark:text-emerald-300 font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <option value="">-- Choose Option --</option>
+                            ${item.options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
+                        </select>
+                        <span>${item.sentenceAfter}</span>
+                    </div>
+                    <div id="feedback-${item.id}" class="hidden p-3 rounded-lg text-xs leading-relaxed"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderExercise2() {
+            const container = document.getElementById('ex2-container');
+            container.innerHTML = EX2_DATA.map((item, idx) => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+                    <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-bold">${item.prompt}</p>
+                    <div class="space-y-1">
+                        <input type="text" id="input-${item.id}" oninput="updateProgress()" placeholder="${item.hint}" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-xs font-mono text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div id="feedback-${item.id}" class="hidden p-3 rounded-lg text-xs leading-relaxed"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderExercise3() {
+            const container = document.getElementById('ex3-container');
+            container.innerHTML = EX3_DATA.map((item, idx) => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+                    <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200">${item.prompt}</p>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                        <span class="text-xs text-slate-500 font-bold whitespace-nowrap">Correct Modal Form:</span>
+                        <input type="text" id="input-${item.id}" oninput="updateProgress()" placeholder="e.g. ${item.correctForm}" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg p-2 text-xs font-mono text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div id="feedback-${item.id}" class="hidden p-3 rounded-lg text-xs leading-relaxed"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderExercise4() {
+            const container = document.getElementById('ex4-container');
+            container.innerHTML = EX4_DATA.map((item, idx) => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2">
+                    <div class="text-xs text-slate-700 dark:text-slate-300 font-semibold">
+                        <span class="text-emerald-600 dark:text-emerald-400 font-bold">${item.speakerA}</span> "${item.lineA}"
+                    </div>
+                    <div class="text-xs text-slate-700 dark:text-slate-300 font-semibold flex flex-wrap items-center gap-2">
+                        <span class="text-teal-600 dark:text-teal-400 font-bold">${item.speakerB}</span>
+                        <select id="input-${item.id}" onchange="updateProgress()" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 text-xs text-emerald-700 dark:text-emerald-300 font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <option value="">-- Complete dialogue --</option>
+                            ${item.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div id="feedback-${item.id}" class="hidden p-3 rounded-lg text-xs leading-relaxed mt-2"></div>
+                </div>
+            `).join('');
+        }
+
+        function updateProgress() {
+            const allIds = [
+                ...EX1_DATA.map(i => i.id),
+                ...EX2_DATA.map(i => i.id),
+                ...EX3_DATA.map(i => i.id),
+                ...EX4_DATA.map(i => i.id)
+            ];
+
+            let count = 0;
+            allIds.forEach(id => {
+                const el = document.getElementById(`input-${id}`);
+                if (el && el.value.trim() !== '') {
+                    count++;
+                }
+            });
+
+            document.getElementById('completion-text').innerText = `${count} / ${allIds.length} Answered`;
+            const percent = (count / allIds.length) * 100;
+            document.getElementById('overall-progress-bar').style.width = `${percent}%`;
+        }
+
+        function checkAllAnswers() {
+            let totalCorrect = 0;
+
+            // Check Exercise 1
+            EX1_DATA.forEach(item => {
+                const val = document.getElementById(`input-${item.id}`).value;
+                const fb = document.getElementById(`feedback-${item.id}`);
+                fb.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'text-red-800', 'text-emerald-800', 'dark:bg-red-950/80', 'dark:bg-emerald-950/80', 'dark:text-red-200', 'dark:text-emerald-200');
+
+                if (val === item.correct) {
+                    totalCorrect++;
+                    fb.classList.add('bg-emerald-50', 'text-emerald-800', 'dark:bg-emerald-950/80', 'dark:text-emerald-200', 'border', 'border-emerald-200', 'dark:border-emerald-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> <strong>Correct!</strong> ${item.explanation}`;
+                } else {
+                    fb.classList.add('bg-red-50', 'text-red-800', 'dark:bg-red-950/80', 'dark:text-red-200', 'border', 'border-red-200', 'dark:border-red-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 mr-1.5"></i> <strong>Incorrect.</strong> Correct answer: <span class="underline font-bold">${item.correct}</span>. ${item.explanation}`;
+                }
+            });
+
+            // Check Exercise 2
+            EX2_DATA.forEach(item => {
+                const val = document.getElementById(`input-${item.id}`).value.trim().toLowerCase();
+                const fb = document.getElementById(`feedback-${item.id}`);
+                fb.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'text-red-800', 'text-emerald-800', 'dark:bg-red-950/80', 'dark:bg-emerald-950/80', 'dark:text-red-200', 'dark:text-emerald-200');
+
+                const isMatch = item.acceptableAnswers.some(ans => val.includes(ans));
+
+                if (isMatch) {
+                    totalCorrect++;
+                    fb.classList.add('bg-emerald-50', 'text-emerald-800', 'dark:bg-emerald-950/80', 'dark:text-emerald-200', 'border', 'border-emerald-200', 'dark:border-emerald-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> <strong>Excellent!</strong> ${item.explanation}`;
+                } else {
+                    fb.classList.add('bg-red-50', 'text-red-800', 'dark:bg-red-950/80', 'dark:text-red-200', 'border', 'border-red-200', 'dark:border-red-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 mr-1.5"></i> <strong>Needs Review.</strong> Key structure required: <span class="font-mono font-bold">${item.keyword}</span>. ${item.explanation}`;
+                }
+            });
+
+            // Check Exercise 3
+            EX3_DATA.forEach(item => {
+                const val = document.getElementById(`input-${item.id}`).value.trim().toLowerCase();
+                const fb = document.getElementById(`feedback-${item.id}`);
+                fb.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'text-red-800', 'text-emerald-800', 'dark:bg-red-950/80', 'dark:bg-emerald-950/80', 'dark:text-red-200', 'dark:text-emerald-200');
+
+                if (val === item.correctForm.toLowerCase()) {
+                    totalCorrect++;
+                    fb.classList.add('bg-emerald-50', 'text-emerald-800', 'dark:bg-emerald-950/80', 'dark:text-emerald-200', 'border', 'border-emerald-200', 'dark:border-emerald-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> <strong>Correct!</strong> ${item.explanation}`;
+                } else {
+                    fb.classList.add('bg-red-50', 'text-red-800', 'dark:bg-red-950/80', 'dark:text-red-200', 'border', 'border-red-200', 'dark:border-red-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 mr-1.5"></i> <strong>Incorrect.</strong> Correct form: <span class="font-mono font-bold">${item.correctForm}</span>. ${item.explanation}`;
+                }
+            });
+
+            // Check Exercise 4
+            EX4_DATA.forEach(item => {
+                const val = document.getElementById(`input-${item.id}`).value;
+                const fb = document.getElementById(`feedback-${item.id}`);
+                fb.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'text-red-800', 'text-emerald-800', 'dark:bg-red-950/80', 'dark:bg-emerald-950/80', 'dark:text-red-200', 'dark:text-emerald-200');
+
+                if (val === item.correct) {
+                    totalCorrect++;
+                    fb.classList.add('bg-emerald-50', 'text-emerald-800', 'dark:bg-emerald-950/80', 'dark:text-emerald-200', 'border', 'border-emerald-200', 'dark:border-emerald-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> <strong>Correct!</strong> ${item.explanation}`;
+                } else {
+                    fb.classList.add('bg-red-50', 'text-red-800', 'dark:bg-red-950/80', 'dark:text-red-200', 'border', 'border-red-200', 'dark:border-red-800');
+                    fb.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 mr-1.5"></i> <strong>Incorrect.</strong> Correct answer: <span class="underline font-bold">${item.correct}</span>. ${item.explanation}`;
+                }
+            });
+
+            // Update Header & Summary
+            document.getElementById('score-text').innerText = `${totalCorrect} / 20`;
+            document.getElementById('final-score').innerText = totalCorrect;
+            
+            const pct = Math.round((totalCorrect / 20) * 100);
+            document.getElementById('final-percentage').innerText = `(${pct}%)`;
+
+            const resultsBox = document.getElementById('results-box');
+            resultsBox.classList.remove('hidden');
+
+            const badge = document.getElementById('grade-badge');
+            const fbText = document.getElementById('grade-feedback');
+
+            if (pct >= 90) {
+                badge.className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-emerald-500 text-white border border-emerald-400";
+                badge.innerText = "Grammar Master (A+)";
+                fbText.innerText = "Outstanding! You have mastered all 7 rules of advanced modal auxiliaries.";
+            } else if (pct >= 70) {
+                badge.className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-teal-500 text-white border border-teal-400";
+                badge.innerText = "Proficient (B)";
+                fbText.innerText = "Great job! You have a solid grasp of past deductions and continuous modal structures.";
+            } else if (pct >= 50) {
+                badge.className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-amber-500 text-white border border-amber-400";
+                badge.innerText = "Developing (C)";
+                fbText.innerText = "Good effort! Review the cheat sheet above and focus on past perfect aspects (have + V3).";
+            } else {
+                badge.className = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-red-500 text-white border border-red-400";
+                badge.innerText = "Needs Practice";
+                fbText.innerText = "Keep practicing! Check the explanations provided under each question to reinforce the formulas.";
+            }
+
+            // Scroll smoothly to results
+            resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetWorksheet() {
+            const inputs = document.querySelectorAll('input[type="text"], select');
+            inputs.forEach(inp => {
+                if (inp.id !== 'date-field') inp.value = '';
+            });
+
+            const feedbacks = document.querySelectorAll('[id^="feedback-"]');
+            feedbacks.forEach(fb => fb.classList.add('hidden'));
+
+            document.getElementById('results-box').classList.add('hidden');
+            document.getElementById('score-text').innerText = "0 / 20";
+            updateProgress();
+        }
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Initialize on load
+        window.onload = function() {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+
+            // Auto-fill today's date
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            document.getElementById('date-field').value = today;
+
+            renderExercise1();
+            renderExercise2();
+            renderExercise3();
+            renderExercise4();
+            updateProgress();
+        };
+    </script>
+</body>
+</html>
